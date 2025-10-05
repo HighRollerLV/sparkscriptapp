@@ -1,4 +1,3 @@
-
 // File: cloudflare-worker.js
 // This code runs on Cloudflare's edge network, not on your server.
 // It acts as a secure proxy to the Gemini API.
@@ -17,9 +16,12 @@ export default {
       return this.handleOptions();
     }
 
-    // We only accept POST requests for this endpoint
+    // We only accept POST requests for this endpoint.
+    // If the request is not a POST, it's likely a proxy misconfiguration
+    // (e.g., in Coolify) that is not forwarding the method correctly.
     if (request.method !== 'POST') {
-      return new Response('Method Not Allowed', { status: 405 });
+      const errorMessage = `Method Not Allowed. This worker received a ${request.method} request but only accepts POST. If you are using a proxy, please ensure it is configured to forward the POST method correctly.`;
+      return this.jsonError(errorMessage, 405);
     }
 
     try {
@@ -66,6 +68,9 @@ export default {
 
     } catch (error) {
       console.error('Cloudflare Worker Error:', error);
+      if (error instanceof SyntaxError) {
+        return this.jsonError('Invalid JSON in request body.', 400);
+      }
       return this.jsonError('An internal server error occurred in the worker.', 500);
     }
   },

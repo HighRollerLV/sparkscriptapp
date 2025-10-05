@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FiZap, FiCpu, FiFeather, FiSend, FiExternalLink, FiLayout, FiDatabase, FiCode, FiBox } from 'react-icons/fi';
-import type { Language, Page } from '../types';
+import type { Language } from '../types';
 import type { Translations } from '../utils/translations';
 
 interface AboutProps {
-    navigate: (page: Page) => void;
     t: Translations[Language];
+    language: Language;
 }
 
 const ValueCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
@@ -37,7 +38,7 @@ const ToolLinkCard: React.FC<{ icon: React.ReactNode; name: string; description:
 );
 
 
-export const About: React.FC<AboutProps> = ({ navigate, t }) => {
+export const About: React.FC<AboutProps> = ({ t, language }) => {
     return (
         <div className="max-w-4xl mx-auto text-white animate-fade-in">
             <section className="text-center mb-16">
@@ -45,12 +46,12 @@ export const About: React.FC<AboutProps> = ({ navigate, t }) => {
                 <p className="text-lg text-gray-400 max-w-2xl mx-auto">
                     {t.about_hero_subtitle}
                 </p>
-                <button 
-                    onClick={() => navigate('generator')}
-                    className="mt-8 bg-[#FFBE00] text-[#14171A] font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20 text-lg"
+                <Link 
+                    to={`/${language}/generator`}
+                    className="mt-8 inline-block bg-[#FFBE00] text-[#14171A] font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20 text-lg"
                 >
                     {t.about_hero_cta}
-                </button>
+                </Link>
             </section>
 
             <section className="mb-16">

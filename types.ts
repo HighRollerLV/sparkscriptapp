@@ -9,5 +9,3 @@ export interface PromptData {
 }
 
 export type Language = 'en' | 'ru' | 'lv';
-
-export type Page = 'generator' | 'about' | 'terms' | 'privacy';

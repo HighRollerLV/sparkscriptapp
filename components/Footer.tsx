@@ -1,19 +1,20 @@
 import React from 'react';
-import type { Language, Page } from '../types';
+import { Link } from 'react-router-dom';
+import type { Language } from '../types';
 import type { Translations } from '../utils/translations';
 
 interface FooterProps {
-  navigate: (page: Page) => void;
   t: Translations[Language];
+  language: Language;
 }
 
-export const Footer: React.FC<FooterProps> = ({ navigate, t }) => {
+export const Footer: React.FC<FooterProps> = ({ t, language }) => {
   return (
     <footer className="bg-[#14171A] border-t border-[#22272B] mt-16">
       <div className="container mx-auto px-4 py-6 text-center text-gray-400 text-sm">
         <div className="flex justify-center gap-6 mb-4">
-            <button onClick={() => navigate('terms')} className="hover:text-[#FFBE00] transition-colors">{t.termsOfUse}</button>
-            <button onClick={() => navigate('privacy')} className="hover:text-[#FFBE00] transition-colors">{t.privacyPolicy}</button>
+            <Link to={`/${language}/terms`} className="hover:text-[#FFBE00] transition-colors">{t.termsOfUse}</Link>
+            <Link to={`/${language}/privacy`} className="hover:text-[#FFBE00] transition-colors">{t.privacyPolicy}</Link>
         </div>
         <div className="space-y-2">
             <p>&copy; {new Date().getFullYear()} SIA Lucidious. All rights reserved.</p>
