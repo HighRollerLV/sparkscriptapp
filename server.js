@@ -10,9 +10,9 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 // Securely get API key from environment variables
-const apiKey = process.env.REACT_API_KEY || process.env.API_KEY;
+const apiKey = process.env.REACT_APP_API_KEY || process.env.API_KEY;
 if (!apiKey) {
-    console.error("API key is missing. Please set REACT_API_KEY or API_KEY environment variable.");
+    console.error("API key is missing. Please set REACT_APP_API_KEY or API_KEY environment variable.");
 }
 
 // Initialize the Google AI client

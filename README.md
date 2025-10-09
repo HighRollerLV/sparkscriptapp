@@ -35,7 +35,7 @@ This application is built as a standard Node.js app, which is perfect for platfo
     
     - In your Coolify application's dashboard, go to the **Environment Variables** section.
     - Add a **new, secret** variable:
-        - **Name:** `REACT_API_KEY`
+        - **Name:** `REACT_APP_API_KEY`
         - **Value:** `your_gemini_api_key_here`
     - Click **Save**.
 
@@ -47,7 +47,7 @@ This application is built as a standard Node.js app, which is perfect for platfo
 
 ## Local Development
 
-To run the full application locally, you will need two terminals.
+The development environment has been streamlined to use a single command.
 
 1.  **Clone the repository:**
     ```bash
@@ -71,16 +71,10 @@ To run the full application locally, you will need two terminals.
     ```
 
 4.  **Run the Application:**
-    - **Terminal 1 (Backend Server):**
-      ```bash
-      npm run dev:server
-      ```
-      This will start your Node.js server on `http://localhost:3001`.
-
-    - **Terminal 2 (Frontend Dev Server):**
+    - Open your terminal and run the single `dev` command:
       ```bash
       npm run dev
       ```
-      This will start the Vite development server on `http://localhost:3000`. Vite is configured to proxy API requests to your backend server, so everything will work seamlessly.
+      This will start both the backend Node.js server (`http://localhost:3001`) and the frontend Vite server (`http://localhost:3000`) at the same time in one terminal.
 
     Now, open `http://localhost:3000` in your browser to use the application.
