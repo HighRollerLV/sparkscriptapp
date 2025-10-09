@@ -44,7 +44,9 @@ export const HomePage: React.FC = () => {
 
     return (
         <div id="generator-section">
-             <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-center leading-tight" dangerouslySetInnerHTML={{ __html: t.generator_page_title }}></h1>
+             <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-center leading-tight">
+                Build Your <span className="text-primary">AI Prompt</span>
+             </h1>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto text-center mb-12">
                 {t.about_hero_subtitle}
             </p>

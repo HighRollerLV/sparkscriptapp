@@ -28,16 +28,16 @@ const CheckIcon: React.FC = () => (
 
 const SkeletonLoader: React.FC = () => (
     <div className="space-y-6 animate-pulse">
-        <div className="h-8 bg-[#14171A] rounded w-1/3"></div>
+        <div className="h-8 bg-background rounded w-1/3"></div>
         <div className="space-y-4">
-            <div className="h-6 bg-[#14171A] rounded w-1/2"></div>
-            <div className="h-4 bg-[#14171A] rounded w-full"></div>
-            <div className="h-4 bg-[#14171A] rounded w-5/6"></div>
+            <div className="h-6 bg-background rounded w-1/2"></div>
+            <div className="h-4 bg-background rounded w-full"></div>
+            <div className="h-4 bg-background rounded w-5/6"></div>
         </div>
         <div className="space-y-4">
-            <div className="h-6 bg-[#14171A] rounded w-1/2"></div>
-            <div className="h-4 bg-[#14171A] rounded w-full"></div>
-            <div className="h-4 bg-[#14171A] rounded w-5/6"></div>
+            <div className="h-6 bg-background rounded w-1/2"></div>
+            <div className="h-4 bg-background rounded w-full"></div>
+            <div className="h-4 bg-background rounded w-5/6"></div>
         </div>
     </div>
 );
@@ -49,8 +49,8 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
 
     const markdownComponents = {
         h1: ({ node, ...props }) => (
-            <h1 className="flex items-center gap-3 text-2xl font-bold text-[#FFBE00] border-b border-[#14171A] pb-2 mb-4" {...props}>
-                <FiFileText className="text-[#FFBE00]"/>
+            <h1 className="flex items-center gap-3 text-2xl font-bold text-primary border-b border-background pb-2 mb-4" {...props}>
+                <FiFileText className="text-primary"/>
             </h1>
         ),
         h2: ({ node, ...props }) => (
@@ -76,7 +76,7 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
                     </SyntaxHighlighter>
                 </div>
             ) : (
-                <code className="bg-[#14171A] text-[#FFBE00] px-1.5 py-1 rounded-md text-sm" {...props}>
+                <code className="bg-background text-primary px-1.5 py-1 rounded-md text-sm" {...props}>
                     {children}
                 </code>
             );
@@ -131,7 +131,7 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
                     </h3>
                     <button
                         onClick={handleCopy}
-                        className="bg-[#14171A] text-gray-300 px-4 py-2 text-sm rounded-md hover:bg-black transition-colors flex items-center gap-2 border border-[#22272B]"
+                        className="bg-background text-gray-300 px-4 py-2 text-sm rounded-md hover:bg-black transition-colors flex items-center gap-2 border border-surface"
                     >
                         {isCopied ? <CheckIcon /> : <CopyIcon />}
                         {isCopied ? t.display_copied : t.display_copy}
@@ -144,14 +144,14 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
                     >
                         {prompt}
                     </ReactMarkdown>
-                    {isLoading && <span className="inline-block w-2.5 h-5 bg-[#FFBE00] animate-pulse ml-1 rounded-sm"></span>}
+                    {isLoading && <span className="inline-block w-2.5 h-5 bg-primary animate-pulse ml-1 rounded-sm"></span>}
                 </div>
             </div>
         );
     };
 
     return (
-        <div className="bg-[#22272B] p-6 rounded-xl shadow-lg h-full min-h-[500px] lg:min-h-0 relative overflow-y-auto">
+        <div className="bg-surface p-6 rounded-xl shadow-lg h-full min-h-[500px] lg:min-h-0 relative overflow-y-auto">
             {renderContent()}
         </div>
     );

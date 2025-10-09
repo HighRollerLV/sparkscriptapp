@@ -49,13 +49,13 @@ export const FeatureInput: React.FC<FeatureInputProps> = ({ features, setFeature
             value={feature}
             onChange={(e) => handleFeatureChange(index, e.target.value)}
             placeholder={`${t.feature_placeholder} ${index + 1}`}
-            className="flex-grow bg-[#14171A] border border-[#22272B] rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-[#FFBE00] focus:border-[#FFBE00] transition"
+            className="flex-grow bg-background border border-border rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-primary focus:border-primary transition"
           />
           <button
             type="button"
             onClick={() => removeFeature(index)}
             disabled={features.length <= 1}
-            className="p-2 bg-[#22272B] text-gray-400 rounded-md hover:bg-[#14171A] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="p-2 bg-surface text-gray-400 rounded-md hover:bg-background hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition"
             aria-label={t.feature_remove_aria}
           >
             <TrashIcon />
@@ -65,7 +65,7 @@ export const FeatureInput: React.FC<FeatureInputProps> = ({ features, setFeature
       <button
         type="button"
         onClick={addFeature}
-        className="w-full mt-2 flex items-center justify-center gap-2 text-sm text-[#FFBE00] bg-[#FFBE00]/10 border border-dashed border-[#FFBE00]/50 rounded-md py-2 px-4 hover:bg-[#FFBE00]/20 transition"
+        className="w-full mt-2 flex items-center justify-center gap-2 text-sm text-primary bg-primary/10 border border-dashed border-primary/50 rounded-md py-2 px-4 hover:bg-primary/20 transition"
       >
         <PlusIcon /> {t.feature_add}
       </button>

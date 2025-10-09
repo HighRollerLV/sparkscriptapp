@@ -35,7 +35,7 @@ export const LanguageSwitcher: React.FC = () => {
     <div className="relative" ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-semibold px-3 py-2 bg-[#22272B] rounded-md"
+        className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors font-semibold px-3 py-2 bg-surface rounded-md"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
@@ -44,14 +44,14 @@ export const LanguageSwitcher: React.FC = () => {
         <FiChevronDown className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-36 bg-[#22272B] border border-gray-700 rounded-md shadow-lg z-20 py-1">
+        <div className="absolute top-full right-0 mt-2 w-36 bg-surface border border-gray-700 rounded-md shadow-lg z-20 py-1">
           {languages.map(({ code, label }) => (
             <button
               key={code}
               onClick={() => handleLanguageSelect(code)}
               className={`w-full text-left px-4 py-2 text-sm ${
-                currentLanguage === code ? 'text-[#FFBE00] font-bold' : 'text-gray-300'
-              } hover:bg-[#14171A]`}
+                currentLanguage === code ? 'text-primary font-bold' : 'text-gray-300'
+              } hover:bg-background`}
             >
               {label}
             </button>

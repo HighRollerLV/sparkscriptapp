@@ -56,7 +56,7 @@ export const TermsOfUse: React.FC<TermsOfUseProps> = ({t}) => {
 
             <Section title={t.terms_section10_title}>
                 <p>{t.terms_section10_p1}</p>
-                 <a href={`mailto:${t.contactEmail}`} className="text-[#FFBE00] hover:underline">{t.contactEmail}</a>
+                 <a href={`mailto:${t.contactEmail}`} className="text-primary hover:underline">{t.contactEmail}</a>
             </Section>
         </ContentPageLayout>
     );

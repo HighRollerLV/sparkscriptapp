@@ -2,8 +2,8 @@ import React from 'react';
 
 export const ContentPageLayout: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => (
     <div className="max-w-4xl mx-auto text-white animate-fade-in">
-        <h1 className="text-4xl font-extrabold mb-8 text-center text-[#FFBE00]">{title}</h1>
-        <div className="space-y-6 text-gray-300 bg-[#22272B] p-8 rounded-xl shadow-lg">
+        <h1 className="text-4xl font-extrabold mb-8 text-center text-primary">{title}</h1>
+        <div className="space-y-6 text-gray-300 bg-surface p-8 rounded-xl shadow-lg">
             {children}
         </div>
     </div>

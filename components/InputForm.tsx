@@ -11,8 +11,8 @@ interface InputFormProps {
 }
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-    <div className="bg-[#22272B] p-6 rounded-xl shadow-lg">
-        <h3 className="text-lg font-semibold text-[#FFBE00] mb-4">{title}</h3>
+    <div className="bg-surface p-6 rounded-xl shadow-lg">
+        <h3 className="text-lg font-semibold text-primary mb-4">{title}</h3>
         {children}
     </div>
 );
@@ -26,14 +26,14 @@ const Label: React.FC<{ htmlFor: string; children: React.ReactNode }> = ({ htmlF
 const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => (
     <input
         {...props}
-        className="w-full bg-[#14171A] border border-[#22272B] rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-[#FFBE00] focus:border-[#FFBE00] transition"
+        className="w-full bg-background border border-border rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-primary focus:border-primary transition"
     />
 );
 
 const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = (props) => (
      <textarea
         {...props}
-        className="w-full bg-[#14171A] border border-[#22272B] rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-[#FFBE00] focus:border-[#FFBE00] transition"
+        className="w-full bg-background border border-border rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-primary focus:border-primary transition"
         rows={4}
     />
 );
@@ -102,8 +102,8 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
                     onClick={() => setPromptType('minimal')}
                     className={`flex-1 p-4 rounded-lg border text-center transition-all ${
                         promptType === 'minimal'
-                            ? 'bg-[#FFBE00]/10 border-[#FFBE00] ring-2 ring-[#FFBE00]'
-                            : 'bg-[#14171A] border-[#22272B] hover:border-[#FFBE00]/50'
+                            ? 'bg-primary/10 border-primary ring-2 ring-primary'
+                            : 'bg-background border-border hover:border-primary/50'
                     }`}
                 >
                     <h4 className="font-semibold text-white">{t.form_prompt_minimal_title}</h4>
@@ -114,8 +114,8 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
                     onClick={() => setPromptType('detailed')}
                     className={`flex-1 p-4 rounded-lg border text-center transition-all ${
                         promptType === 'detailed'
-                            ? 'bg-[#FFBE00]/10 border-[#FFBE00] ring-2 ring-[#FFBE00]'
-                            : 'bg-[#14171A] border-[#22272B] hover:border-[#FFBE00]/50'
+                            ? 'bg-primary/10 border-primary ring-2 ring-primary'
+                            : 'bg-background border-border hover:border-primary/50'
                     }`}
                 >
                     <h4 className="font-semibold text-white">{t.form_prompt_detailed_title}</h4>
@@ -127,7 +127,7 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
       <button
         type="submit"
         disabled={isLoading || !corePurpose.trim() || !isApiKeyConfigured}
-        className="w-full flex items-center justify-center bg-[#FFBE00] text-white font-bold py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20"
+        className="w-full flex items-center justify-center bg-primary text-white font-bold py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-primary/20"
       >
         {isLoading ? (
             <>

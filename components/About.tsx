@@ -9,11 +9,11 @@ interface AboutProps {
 }
 
 const ValueCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
-    <div className="bg-[#22272B] p-6 rounded-xl shadow-lg text-center">
-        <div className="mx-auto w-16 h-16 mb-4 bg-[#14171A] rounded-full flex items-center justify-center text-[#FFBE00]">
+    <div className="bg-surface p-6 rounded-xl shadow-lg text-center">
+        <div className="mx-auto w-16 h-16 mb-4 bg-background rounded-full flex items-center justify-center text-primary">
             {icon}
         </div>
-        <h3 className="text-xl font-bold text-[#FFBE00] mb-2">{title}</h3>
+        <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
         <p className="text-gray-300">{children}</p>
     </div>
 );
@@ -23,14 +23,14 @@ const ToolLinkCard: React.FC<{ icon: React.ReactNode; name: string; description:
         href={url} 
         target="_blank" 
         rel="noopener noreferrer"
-        className="block bg-[#22272B] p-6 rounded-xl shadow-lg hover:bg-[#14171A] border border-transparent hover:border-[#FFBE00] transition-all duration-300 group"
+        className="block bg-surface p-6 rounded-xl shadow-lg hover:bg-background border border-transparent hover:border-primary transition-all duration-300 group"
     >
         <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-4">
-                <div className="text-[#FFBE00]">{icon}</div>
+                <div className="text-primary">{icon}</div>
                 <h4 className="font-bold text-white text-lg">{name}</h4>
             </div>
-            <FiExternalLink className="text-gray-500 group-hover:text-[#FFBE00] transition-colors" />
+            <FiExternalLink className="text-gray-500 group-hover:text-primary transition-colors" />
         </div>
         <p className="text-gray-400 text-sm">{description}</p>
     </a>
@@ -41,13 +41,15 @@ export const About: React.FC<AboutProps> = ({ t }) => {
     return (
         <div className="max-w-4xl mx-auto text-white animate-fade-in">
             <section className="text-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: t.about_hero_title }}></h1>
+                <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                    Turn Your <span className="text-primary">Idea</span> Into an <span className="text-primary">AI Blueprint</span>, Instantly
+                </h1>
                 <p className="text-lg text-gray-400 max-w-2xl mx-auto">
                     {t.about_hero_subtitle}
                 </p>
                 <Link 
                     to="/generator"
-                    className="mt-8 inline-block bg-[#FFBE00] text-[#14171A] font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20 text-lg"
+                    className="mt-8 inline-block bg-primary text-background font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-primary/20 text-lg"
                 >
                     {t.about_hero_cta}
                 </Link>
@@ -68,7 +70,7 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                 </div>
             </section>
             
-            <section className="mb-16 bg-[#22272B] p-8 rounded-xl shadow-lg">
+            <section className="mb-16 bg-surface p-8 rounded-xl shadow-lg">
                  <h2 className="text-3xl font-bold text-center mb-6">{t.about_why_title}</h2>
                  <p className="text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
                     {t.about_why_desc}

@@ -20,12 +20,17 @@ To run this project locally, follow these steps:
     ```
 
 2.  **Install dependencies:**
+    This project uses `npm` for package management.
     ```bash
     npm install
     ```
 
 3.  **Set up your API Key:**
-    This project requires a Google Gemini API key. It is accessed via `process.env.API_KEY`. You must ensure this environment variable is available in your local development and deployment environments.
+    This project requires a Google Gemini API key. It is accessed via `process.env.API_KEY`. For local development, you can create a `.env.local` file in the root of the project and add your key:
+    ```
+    REACT_API_KEY=your_gemini_api_key_here
+    ```
+    The Vite configuration (`vite.config.ts`) is set up to read this variable. For production, you will need to set the `REACT_API_KEY` environment variable in your deployment environment.
 
 4.  **Run the development server:**
     ```bash
@@ -38,12 +43,10 @@ To run this project locally, follow these steps:
 ## Building for Production
 
 To create a production build of the app, run:
-
 ```bash
 npm run build
 ```
-
-This will create a `dist` folder with the static assets for your application.
+This command bundles the app, compiles the TypeScript, and optimizes the Tailwind CSS, creating a `dist` folder with the static assets for your application.
 
 ---
 
