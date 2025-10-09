@@ -2,19 +2,52 @@
 
 SparkScript is a modern web application designed to help developers generate detailed, structured prompts for AI development tools. It turns a simple app idea into a comprehensive software blueprint using the Google Gemini API.
 
-This project follows a secure, modern architecture where the React frontend communicates with a serverless backend function, ensuring that the Google Gemini API key is never exposed to the client's browser.
+This project uses a secure, standard client-server architecture. The React frontend (built with Vite) communicates with a dedicated Node.js (Express) backend server, ensuring that the Google Gemini API key is never exposed to the client's browser.
 
 ## Technology Stack
 
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router
-- **Backend:** Serverless Function (e.g., Vercel Edge Function)
+- **Backend:** Node.js, Express.js
 - **AI Integration:** Google Gemini API (`@google/genai`) on the backend
 
 ---
 
-## Project Setup
+## Deployment on Coolify (or any Node.js Host)
 
-To run this project locally in a way that mimics a production environment, it is highly recommended to use the [Vercel CLI](https://vercel.com/docs/cli).
+This application is built as a standard Node.js app, which is perfect for platforms like Coolify.
+
+1.  **Push to a Git Repository:**
+    Make sure your project is on GitHub, GitLab, or Bitbucket.
+
+2.  **Create a New Application in Coolify:**
+    - In your Coolify dashboard, create a new resource and point it to your Git repository.
+    - Coolify should detect it's a Node.js application and suggest a **Nixpacks** build. This is the correct choice.
+
+3.  **Configure the Build & Start Commands:**
+    Coolify will automatically use the scripts from your `package.json`.
+    - **Install Command:** It will use `npm install`.
+    - **Build Command:** It will use `npm run build`.
+    - **Start Command:** It will use `npm run start`.
+    This requires no changes from you.
+
+4.  **Add Your Secure Environment Variable:**
+    This is the most important step for connecting to the Gemini API.
+    
+    - In your Coolify application's dashboard, go to the **Environment Variables** section.
+    - Add a **new, secret** variable:
+        - **Name:** `REACT_API_KEY`
+        - **Value:** `your_gemini_api_key_here`
+    - Click **Save**.
+
+5.  **Deploy:**
+    - Trigger a new deployment in Coolify.
+    - Coolify will build your React app, start your Node.js server, and make your application available at the provided domain. The server will automatically serve the frontend and handle API calls securely.
+
+---
+
+## Local Development
+
+To run the full application locally, you will need two terminals.
 
 1.  **Clone the repository:**
     ```bash
@@ -23,54 +56,31 @@ To run this project locally in a way that mimics a production environment, it is
     ```
 
 2.  **Install dependencies:**
-    This project uses `npm` for package management.
     ```bash
     npm install
     ```
 
-3.  **Install the Vercel CLI:**
-    ```bash
-    npm install -g vercel
-    ```
-
-4.  **Set up your Secret API Key:**
-    The Google Gemini API key is a secret and must only be used on the server. The Vercel CLI can read local environment variables for development.
+3.  **Set up your Local API Key:**
+    The backend server needs access to your API key for local development.
     
-    Create a file named `.env.local` in the root of the project and add your key:
+    Create a file named `.env` at the **root** of your project:
     ```
+    # This file is for local development only.
+    # The server is configured to read this variable name locally.
     API_KEY=your_gemini_api_key_here
     ```
-    **Important:** This file is for local development only and should be listed in your `.gitignore` file.
 
-5.  **Run the development server:**
-    Use the `vercel dev` command to run the application. This command will start the Vite dev server for the frontend and simultaneously run the serverless function in the `/api` directory, creating a complete development environment.
-    ```bash
-    vercel dev
-    ```
-    The application will be available at `http://localhost:3000`.
+4.  **Run the Application:**
+    - **Terminal 1 (Backend Server):**
+      ```bash
+      npm run dev:server
+      ```
+      This will start your Node.js server on `http://localhost:3001`.
 
----
+    - **Terminal 2 (Frontend Dev Server):**
+      ```bash
+      npm run dev
+      ```
+      This will start the Vite development server on `http://localhost:3000`. Vite is configured to proxy API requests to your backend server, so everything will work seamlessly.
 
-## Building for Production
-
-To create a production build of the app, run:
-```bash
-npm run build
-```
-This command bundles the frontend application and prepares the serverless function for deployment.
-
----
-
-## Deployment
-
-You can deploy this project to any hosting service that supports a Vite frontend and Node.js serverless functions (e.g., Vercel, Netlify).
-
-### 1. Configure the Environment Variable
-In your hosting provider's dashboard, you must set the `API_KEY` as a secret environment variable. This will make it securely available to your serverless function in production.
-
-### 2. Configure the Build
-- **Build Command:** `npm run build`
-- **Output Directory:** `dist`
-
-### 3. Server Configuration for Routing
-This application uses `react-router-dom` with `BrowserRouter` for clean URLs. Your hosting service must be configured to handle client-side routing by redirecting all non-asset requests to `/index.html`. Most modern Jamstack hosts (like Vercel and Netlify) do this automatically for Vite projects.
+    Now, open `http://localhost:3000` in your browser to use the application.
