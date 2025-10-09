@@ -21,7 +21,7 @@ export const usePageMeta = (title: string, description: string, path: string) =>
         document.documentElement.lang = language;
         document.title = title;
         
-        const canonicalUrl = `https://www.sparkscript.tech/#${path}`;
+        const canonicalUrl = `https://www.sparkscript.tech${path}`;
         
         updateMeta('meta[name="description"]', description);
         updateMeta('meta[property="og:title"]', title);

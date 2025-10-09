@@ -52,7 +52,7 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                     {t.about_hero_subtitle}
                 </p>
                 <Link 
-                    to="/generator"
+                    to="/prompt-builder"
                     className="mt-8 inline-block bg-primary text-background font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-primary/20 text-lg"
                 >
                     {t.about_hero_cta}

@@ -347,7 +347,7 @@ export const translations = {
     about_hero_title_part1: 'Pārvērtiet savu',
     about_hero_title_part2_highlight: 'ideju',
     about_hero_title_part3: 'par',
-    about_hero_title_part4_highlight: 'AI projektu ',
+    about_hero_title_part4_highlight: 'AI projektu',
     about_hero_title_part5: 'acumirklī',
 
     // Homepage (About)

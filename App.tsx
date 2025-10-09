@@ -48,7 +48,7 @@ const AppContent: React.FC = () => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<AboutPage />} />
-                <Route path="generator" element={<HomePage />} />
+                <Route path="prompt-builder" element={<HomePage />} />
                 <Route path="terms" element={<TermsPage />} />
                 <Route path="privacy" element={<PrivacyPage />} />
             </Route>

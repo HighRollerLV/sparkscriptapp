@@ -52,10 +52,12 @@ This command bundles the app, compiles the TypeScript, and optimizes the Tailwin
 
 ## Deployment
 
-You can deploy the contents of the `dist` folder to any static site hosting service (e.g., Vercel, Netlify, GitHub Pages, or a traditional web server).
+You can deploy the contents of the `dist` folder to any static site hosting service (e.g., Vercel, Netlify, GitHub Pages, Coolify, or a traditional web server).
 
-### Simplified Routing for Easy Deployment
+### Important: Server Configuration for Routing
 
-This application uses `react-router-dom` with `HashRouter` for client-side navigation. This approach uses the URL hash (`#`) to manage routes (e.g., `https://sparkscript.tech/#/about`), which has a key advantage for deployment: **it requires no special server configuration.**
+This application uses `react-router-dom` with `BrowserRouter` for clean, user-friendly URLs (e.g., `/prompt-builder`). For this to work correctly, **your hosting server must be configured to handle client-side routing.**
 
-You can deploy the `dist` folder to any static hosting provider, and routing will work out-of-the-box without needing to set up server-side rewrites. This makes the deployment process simple and reliable.
+This means that any request to a path that isn't a static file (like `/prompt-builder` or `/about`) should be redirected to serve the `index.html` file. This allows the React application to take over and render the correct page.
+
+Most modern hosting providers have a simple way to configure this. Look for "rewrite rules" or "single-page application (SPA)" settings. A common configuration is to rewrite all requests that would otherwise result in a 404 error to `/index.html`.

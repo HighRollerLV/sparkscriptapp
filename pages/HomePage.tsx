@@ -40,7 +40,7 @@ export const HomePage: React.FC = () => {
     }, [language, t.error_failedToGenerate, isApiKeyConfigured]);
 
     // SEO and Meta Tags
-    usePageMeta(t.seo_generator_title, t.seo_generator_desc, '/generator');
+    usePageMeta(t.seo_generator_title, t.seo_generator_desc, '/prompt-builder');
 
     return (
         <div id="generator-section">

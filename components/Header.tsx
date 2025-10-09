@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
             <NavLink to="/" end className={navLinkClasses}>
                 {t.nav_about}
             </NavLink>
-            <NavLink to="/generator" className={navLinkClasses}>
+            <NavLink to="/prompt-builder" className={navLinkClasses}>
                 {t.promptBuilder}
             </NavLink>
             <LanguageSwitcher />
