@@ -1,7 +1,10 @@
+import { GoogleGenAI } from '@google/genai';
 import type { PromptData, Language } from '../types';
 
-// The GoogleGenAI SDK and API key are no longer used on the client-side.
-// This file now exclusively communicates with YOUR secure backend server.
+// This service now directly communicates with the Google Gemini API.
+// Ensure the API_KEY environment variable is available.
+
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const getLanguageName = (langCode: Language): string => {
     switch (langCode) {
@@ -85,61 +88,23 @@ const buildMetaPrompt = (data: PromptData, language: Language): string => {
 export async function* generateAppPromptStream(data: PromptData, language: Language): AsyncGenerator<string> {
   const metaPrompt = buildMetaPrompt(data, language);
   
-  // This function now calls YOUR secure backend endpoint.
-  const backendApiUrl = '/api/generate';
-
   try {
-    const response = await fetch(backendApiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ metaPrompt }),
+    const response = await ai.models.generateContentStream({
+      model: "gemini-2.5-flash",
+      contents: metaPrompt,
     });
 
-    if (!response.ok) {
-        const errorBody = await response.text();
-        console.error(`Backend error (status ${response.status}):`, errorBody);
-        
-        let detailedMessage = `The server responded with an error (Status: ${response.status}).`;
-        try {
-            // The Cloudflare worker sends a JSON error, let's try to parse it.
-            const jsonError = JSON.parse(errorBody);
-            if (jsonError.error) {
-                detailedMessage = jsonError.error;
-            }
-        } catch (e) {
-            // If it's not JSON, use the raw text if it's short and readable.
-            if (errorBody.length > 0 && errorBody.length < 150) {
-                detailedMessage += ` Details: ${errorBody}`;
-            }
-        }
-        throw new Error(detailedMessage);
-    }
-
-    if (!response.body) {
-        throw new Error('Response from server was empty.');
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        const { done, value } = await reader.read();
-        if (done) {
-            break;
-        }
-        yield decoder.decode(value);
+    for await (const chunk of response) {
+      yield chunk.text;
     }
 
   } catch (error) {
-    console.error(`Error in generateAppPromptStream calling '${backendApiUrl}':`, error);
+    console.error("Error calling Gemini API:", error);
     if (error instanceof Error) {
-        // Re-throw the more specific error from the block above or the network error.
-        throw error;
+        // Re-throw the original error to be handled by the component.
+        throw new Error(`[Gemini API Error] ${error.message}`);
     }
     // Fallback for unknown errors
-    throw new Error("A network error occurred. Please check your connection and try again.");
+    throw new Error("An unknown error occurred while communicating with the AI service.");
   }
 }

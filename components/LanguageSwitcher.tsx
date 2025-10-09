@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { Language } from '../types';
 import { FiGlobe, FiChevronDown } from 'react-icons/fi';
-
-interface LanguageSwitcherProps {
-  currentLanguage: Language;
-  onChangeLanguage: (lang: Language) => void;
-}
+import { useLanguage } from '../contexts/LanguageContext';
 
 const languages: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
@@ -13,7 +9,8 @@ const languages: { code: Language; label: string }[] = [
   { code: 'lv', label: 'Latviešu' },
 ];
 
-export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ currentLanguage, onChangeLanguage }) => {
+export const LanguageSwitcher: React.FC = () => {
+  const { language: currentLanguage, setLanguage: onChangeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 

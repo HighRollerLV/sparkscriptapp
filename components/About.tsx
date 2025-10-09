@@ -6,7 +6,6 @@ import type { Translations } from '../utils/translations';
 
 interface AboutProps {
     t: Translations[Language];
-    language: Language;
 }
 
 const ValueCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
@@ -38,7 +37,7 @@ const ToolLinkCard: React.FC<{ icon: React.ReactNode; name: string; description:
 );
 
 
-export const About: React.FC<AboutProps> = ({ t, language }) => {
+export const About: React.FC<AboutProps> = ({ t }) => {
     return (
         <div className="max-w-4xl mx-auto text-white animate-fade-in">
             <section className="text-center mb-16">
@@ -47,7 +46,7 @@ export const About: React.FC<AboutProps> = ({ t, language }) => {
                     {t.about_hero_subtitle}
                 </p>
                 <Link 
-                    to={`/${language}/generator`}
+                    to="/generator"
                     className="mt-8 inline-block bg-[#FFBE00] text-[#14171A] font-bold py-3 px-8 rounded-lg transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20 text-lg"
                 >
                     {t.about_hero_cta}

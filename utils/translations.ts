@@ -8,6 +8,7 @@ export const translations = {
     lastUpdated: 'Last Updated',
     aria_label_homepage: 'Go to SparkScript homepage',
     generator_page_title: 'Build Your <span class="text-[#FFBE00]">AI Prompt</span>',
+    nav_about: 'About',
 
     // SEO Meta Tags
     seo_default_desc: 'SparkScript is an AI-powered tool that turns your app ideas into detailed development blueprints, perfect for AI developers and modern workflows.',
@@ -160,6 +161,7 @@ export const translations = {
     lastUpdated: 'Последнее обновление',
     aria_label_homepage: 'Перейти на главную страницу SparkScript',
     generator_page_title: 'Создайте ваш <span class="text-[#FFBE00]">запрос для ИИ</span>',
+    nav_about: 'О нас',
 
     // SEO Meta Tags
     seo_default_desc: 'SparkScript — это инструмент на базе ИИ, который превращает ваши идеи приложений в подробные проекты для разработки, идеально подходящие для ИИ-разработчиков.',
@@ -311,6 +313,7 @@ export const translations = {
     lastUpdated: 'Pēdējo reizi atjaunināts',
     aria_label_homepage: 'Doties uz SparkScript sākumlapu',
     generator_page_title: 'Izveidojiet savu <span class="text-[#FFBE00]">AI uzdevumu</span>',
+    nav_about: 'Par mums',
 
     // SEO Meta Tags
     seo_default_desc: 'SparkScript ir AI rīks, kas pārvērš jūsu lietotņu idejas detalizētos izstrādes projektos, kas ir ideāli piemēroti AI izstrādātājiem un modernām darba plūsmām.',
