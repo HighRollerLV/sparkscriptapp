@@ -14,8 +14,12 @@ export const HomePage: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const isApiKeyConfigured = !!process.env.API_KEY;
+
     // Prompt Generation
     const handleGeneratePrompt = useCallback(async (data: PromptData) => {
+        if (!isApiKeyConfigured) return;
+
         setIsLoading(true);
         setError(null);
         setGeneratedPrompt('');
@@ -33,7 +37,7 @@ export const HomePage: React.FC = () => {
         } finally {
             setIsLoading(false);
         }
-    }, [language, t.error_failedToGenerate]);
+    }, [language, t.error_failedToGenerate, isApiKeyConfigured]);
 
     // SEO and Meta Tags
     usePageMeta(t.seo_generator_title, t.seo_generator_desc, '/prompt-builder');
@@ -48,7 +52,7 @@ export const HomePage: React.FC = () => {
                 {t.about_hero_subtitle}
             </p>
             <div id="prompt-display-section" className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <InputForm onGenerate={handleGeneratePrompt} isLoading={isLoading} t={t} />
+                <InputForm onGenerate={handleGeneratePrompt} isLoading={isLoading} t={t} isApiKeyConfigured={isApiKeyConfigured} />
                 <PromptDisplay prompt={generatedPrompt} isLoading={isLoading} error={error} t={t} />
             </div>
         </div>

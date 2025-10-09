@@ -4,18 +4,13 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Prevent Vite from clearing the terminal screen.
-  // This is useful when running multiple servers concurrently.
-  clearScreen: false,
+  define: {
+    // This makes the environment variable available to the client-side code.
+    // It reads REACT_APP_API_KEY from the build environment and assigns it to process.env.API_KEY.
+    'process.env.API_KEY': JSON.stringify(process.env.REACT_APP_API_KEY),
+  },
   server: {
     // Port for the Vite dev server
     port: 3000,
-    // Proxy API requests to the backend server during development
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
-    },
   },
 });

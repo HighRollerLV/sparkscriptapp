@@ -12,7 +12,8 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+    {/* Fix: Removed the 'future' prop from BrowserRouter as it is no longer a valid prop in recent versions of react-router-dom, resolving the TypeScript error. */}
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>

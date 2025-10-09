@@ -2,52 +2,16 @@
 
 SparkScript is a modern web application designed to help developers generate detailed, structured prompts for AI development tools. It turns a simple app idea into a comprehensive software blueprint using the Google Gemini API.
 
-This project uses a secure, standard client-server architecture. The React frontend (built with Vite) communicates with a dedicated Node.js (Express) backend server, ensuring that the Google Gemini API key is never exposed to the client's browser.
-
 ## Technology Stack
 
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router
-- **Backend:** Node.js, Express.js
-- **AI Integration:** Google Gemini API (`@google/genai`) on the backend
+- **AI Integration:** Google Gemini API (`@google/genai`)
 
 ---
 
-## Deployment on Coolify (or any Node.js Host)
+## Project Setup
 
-This application is built as a standard Node.js app, which is perfect for platforms like Coolify.
-
-1.  **Push to a Git Repository:**
-    Make sure your project is on GitHub, GitLab, or Bitbucket.
-
-2.  **Create a New Application in Coolify:**
-    - In your Coolify dashboard, create a new resource and point it to your Git repository.
-    - Coolify should detect it's a Node.js application and suggest a **Nixpacks** build. This is the correct choice.
-
-3.  **Configure the Build & Start Commands:**
-    Coolify will automatically use the scripts from your `package.json`.
-    - **Install Command:** It will use `npm install`.
-    - **Build Command:** It will use `npm run build`.
-    - **Start Command:** It will use `npm run start`.
-    This requires no changes from you.
-
-4.  **Add Your Secure Environment Variable:**
-    This is the most important step for connecting to the Gemini API.
-    
-    - In your Coolify application's dashboard, go to the **Environment Variables** section.
-    - Add a **new, secret** variable:
-        - **Name:** `REACT_APP_API_KEY`
-        - **Value:** `your_gemini_api_key_here`
-    - Click **Save**.
-
-5.  **Deploy:**
-    - Trigger a new deployment in Coolify.
-    - Coolify will build your React app, start your Node.js server, and make your application available at the provided domain. The server will automatically serve the frontend and handle API calls securely.
-
----
-
-## Local Development
-
-The development environment has been streamlined to use a single command.
+To run this project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
@@ -56,25 +20,44 @@ The development environment has been streamlined to use a single command.
     ```
 
 2.  **Install dependencies:**
+    This project uses `npm` for package management.
     ```bash
     npm install
     ```
 
-3.  **Set up your Local API Key:**
-    The backend server needs access to your API key for local development.
-    
-    Create a file named `.env` at the **root** of your project:
+3.  **Set up your API Key:**
+    This project requires a Google Gemini API key. It is accessed via `process.env.API_KEY`. For local development, you can create a `.env.local` file in the root of the project and add your key:
     ```
-    # This file is for local development only.
-    # The server is configured to read this variable name locally.
-    API_KEY=your_gemini_api_key_here
+    REACT_APP_API_KEY=your_gemini_api_key_here
     ```
+    The Vite configuration (`vite.config.ts`) is set up to read this variable. For production, you will need to set the `REACT_APP_API_KEY` environment variable in your deployment environment.
 
-4.  **Run the Application:**
-    - Open your terminal and run the single `dev` command:
-      ```bash
-      npm run dev
-      ```
-      This will start both the backend Node.js server (`http://localhost:3001`) and the frontend Vite server (`http://localhost:3000`) at the same time in one terminal.
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application will be available at `http://localhost:3000`.
 
-    Now, open `http://localhost:3000` in your browser to use the application.
+---
+
+## Building for Production
+
+To create a production build of the app, run:
+```bash
+npm run build
+```
+This command bundles the app, compiles the TypeScript, and optimizes the Tailwind CSS, creating a `dist` folder with the static assets for your application.
+
+---
+
+## Deployment
+
+You can deploy the contents of the `dist` folder to any static site hosting service (e.g., Vercel, Netlify, GitHub Pages, Coolify, or a traditional web server).
+
+### Important: Server Configuration for Routing
+
+This application uses `react-router-dom` with `BrowserRouter` for clean, user-friendly URLs (e.g., `/prompt-builder`). For this to work correctly, **your hosting server must be configured to handle client-side routing.**
+
+This means that any request to a path that isn't a static file (like `/prompt-builder` or `/about`) should be redirected to serve the `index.html` file. This allows the React application to take over and render the correct page.
+
+Most modern hosting providers have a simple way to configure this. Look for "rewrite rules" or "single-page application (SPA)" settings. A common configuration is to rewrite all requests that would otherwise result in a 404 error to `/index.html`.
