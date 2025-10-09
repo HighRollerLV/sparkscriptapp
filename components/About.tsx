@@ -42,7 +42,11 @@ export const About: React.FC<AboutProps> = ({ t }) => {
         <div className="max-w-4xl mx-auto text-white animate-fade-in">
             <section className="text-center mb-16">
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                    Turn Your <span className="text-primary">Idea</span> Into an <span className="text-primary">AI Blueprint</span>, Instantly
+                    {t.about_hero_title_part1}{' '}
+                    <span className="text-primary">{t.about_hero_title_part2_highlight}</span>{' '}
+                    {t.about_hero_title_part3}{' '}
+                    <span className="text-primary">{t.about_hero_title_part4_highlight}</span>
+                    {t.about_hero_title_part5}
                 </h1>
                 <p className="text-lg text-gray-400 max-w-2xl mx-auto">
                     {t.about_hero_subtitle}

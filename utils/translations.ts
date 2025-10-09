@@ -7,7 +7,6 @@ export const translations = {
     contactEmail: 'sparkscriptstech@gmail.com',
     lastUpdated: 'Last Updated',
     aria_label_homepage: 'Go to SparkScript homepage',
-    generator_page_title: 'Build Your <span class="text-[#FFBE00]">AI Prompt</span>',
     nav_about: 'About',
 
     // SEO Meta Tags
@@ -21,8 +20,16 @@ export const translations = {
     seo_privacy_title: 'Privacy Policy | SparkScript',
     seo_privacy_desc: 'Learn how SparkScript and SIA Lucidious handle your data, our cookie policy, and your rights under GDPR.',
 
+    // Page Titles (Refactored for safety)
+    generator_title_part1: 'Build Your',
+    generator_title_part2_highlight: 'AI Prompt',
+    about_hero_title_part1: 'Turn Your',
+    about_hero_title_part2_highlight: 'Idea',
+    about_hero_title_part3: 'Into an',
+    about_hero_title_part4_highlight: 'AI Blueprint',
+    about_hero_title_part5: ', Instantly',
+
     // Homepage (About)
-    about_hero_title: 'Turn Your <span class="text-[#FFBE00]">Idea</span> Into an <span class="text-[#FFBE00]">AI Blueprint</span>, Instantly',
     about_hero_subtitle: 'SparkScript is your starting line for building software. We turn your vision into a clear, structured prompt that helps AI developer tools understand exactly what you want to build.',
     about_hero_cta: 'Start Building Your Prompt',
     about_mission_title: 'Our Mission: Clear Ideas, Faster Creation',
@@ -161,7 +168,6 @@ export const translations = {
     contactEmail: 'sparkscriptstech@gmail.com',
     lastUpdated: 'Последнее обновление',
     aria_label_homepage: 'Перейти на главную страницу SparkScript',
-    generator_page_title: 'Создайте ваш <span class="text-[#FFBE00]">запрос для ИИ</span>',
     nav_about: 'О нас',
 
     // SEO Meta Tags
@@ -175,8 +181,16 @@ export const translations = {
     seo_privacy_title: 'Политика конфиденциальности | SparkScript',
     seo_privacy_desc: 'Узнайте, как SparkScript и SIA Lucidious обрабатывают ваши данные, о нашей политике в отношении cookie и ваших правах согласно GDPR.',
 
+    // Page Titles (Refactored for safety)
+    generator_title_part1: 'Создайте ваш',
+    generator_title_part2_highlight: 'запрос для ИИ',
+    about_hero_title_part1: 'Превратите вашу',
+    about_hero_title_part2_highlight: 'идею',
+    about_hero_title_part3: 'в',
+    about_hero_title_part4_highlight: 'проект для ИИ',
+    about_hero_title_part5: '— мгновенно',
+
     // Homepage (About)
-    about_hero_title: 'Превратите вашу <span class="text-[#FFBE00]">идею</span> в <span class="text-[#FFBE00]">проект для ИИ</span> — мгновенно',
     about_hero_subtitle: 'SparkScript — ваш старт для создания ПО. Мы превращаем ваше видение в четкий, структурированный промпт, который помогает ИИ-инструментам для разработки точно понять, что вы хотите создать.',
     about_hero_cta: 'Начать создавать запрос',
     about_mission_title: 'Наша миссия: Ясные идеи, быстрое создание',
@@ -314,7 +328,6 @@ export const translations = {
     contactEmail: 'sparkscriptstech@gmail.com',
     lastUpdated: 'Pēdējo reizi atjaunināts',
     aria_label_homepage: 'Doties uz SparkScript sākumlapu',
-    generator_page_title: 'Izveidojiet savu <span class="text-[#FFBE00]">AI uzdevumu</span>',
     nav_about: 'Par mums',
 
     // SEO Meta Tags
@@ -328,8 +341,16 @@ export const translations = {
     seo_privacy_title: 'Privātuma politika | SparkScript',
     seo_privacy_desc: 'Uzziniet, kā SparkScript un SIA Lucidious apstrādā jūsu datus, mūsu sīkdatņu politiku un jūsu tiesības saskaņā ar VDAR.',
 
+    // Page Titles (Refactored for safety)
+    generator_title_part1: 'Izveidojiet savu',
+    generator_title_part2_highlight: 'AI uzdevumu',
+    about_hero_title_part1: 'Pārvērtiet savu',
+    about_hero_title_part2_highlight: 'ideju',
+    about_hero_title_part3: 'par',
+    about_hero_title_part4_highlight: 'AI projektu ',
+    about_hero_title_part5: 'acumirklī',
+
     // Homepage (About)
-    about_hero_title: 'Pārvērtiet savu <span class="text-[#FFBE00]">ideju</span> par <span class="text-[#FFBE00]">AI projektu</span> acumirklī',
     about_hero_subtitle: 'SparkScript ir jūsu sākumpunkts programmatūras izveidei. Mēs pārvēršam jūsu vīziju skaidrā, strukturētā uzdevumā, kas palīdz AI izstrādes rīkiem precīzi saprast, ko vēlaties izveidot.',
     about_hero_cta: 'Sākt veidot uzdevumu',
     about_mission_title: 'Mūsu misija: Skaidras idejas, ātrāka izveide',
