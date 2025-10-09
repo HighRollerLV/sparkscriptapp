@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   define: {
     // This makes the environment variable available to the client-side code.
-    // Vite performs a direct string replacement, so we need to stringify the value.
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+    // It reads REACT_API_KEY from the build environment and assigns it to process.env.API_KEY.
+    'process.env.API_KEY': JSON.stringify(process.env.REACT_API_KEY),
   },
   server: {
     // Port for the Vite dev server

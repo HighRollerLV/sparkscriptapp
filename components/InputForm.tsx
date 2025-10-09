@@ -7,6 +7,7 @@ interface InputFormProps {
   onGenerate: (data: PromptData) => void;
   isLoading: boolean;
   t: Translations[Language];
+  isApiKeyConfigured: boolean;
 }
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
@@ -38,7 +39,7 @@ const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = (p
 );
 
 
-export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t }) => {
+export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, isApiKeyConfigured }) => {
   const [appName, setAppName] = useState('');
   const [corePurpose, setCorePurpose] = useState('');
   const [features, setFeatures] = useState<string[]>(['']);
@@ -50,6 +51,7 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isApiKeyConfigured) return;
     onGenerate({ appName, corePurpose, features, targetAudience, techStack, styling, promptType });
   };
 
@@ -124,7 +126,7 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t }
       
       <button
         type="submit"
-        disabled={isLoading || !corePurpose.trim()}
+        disabled={isLoading || !corePurpose.trim() || !isApiKeyConfigured}
         className="w-full flex items-center justify-center bg-[#FFBE00] text-white font-bold py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-[#FFBE00]/20"
       >
         {isLoading ? (
@@ -139,6 +141,11 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t }
             t.button_generate
         )}
       </button>
+      {!isApiKeyConfigured && (
+        <p className="text-center text-sm text-red-400 -mt-4">
+            {t.error_apiKeyMissing}
+        </p>
+      )}
     </form>
   );
 };

@@ -81,6 +81,7 @@ export const translations = {
     display_copied: 'Copied!',
     display_copy: 'Copy Blueprint',
     error_failedToGenerate: "Oops! We couldn't generate your prompt right now. Please check your connection and try again.",
+    error_apiKeyMissing: 'API Key is not configured. The generator is disabled.',
     
     // Terms of Use
     terms_section1_title: '1. Welcome to SparkScript!',
@@ -234,6 +235,7 @@ export const translations = {
     display_copied: 'Скопировано!',
     display_copy: 'Копировать план',
     error_failedToGenerate: "Ой! Не удалось сгенерировать ваш запрос. Пожалуйста, проверьте соединение и попробуйте снова.",
+    error_apiKeyMissing: 'API-ключ не настроен. Генератор отключен.',
 
     // Terms of Use
     terms_section1_title: '1. Добро пожаловать в SparkScript!',
@@ -386,6 +388,7 @@ export const translations = {
     display_copied: 'Nokopēts!',
     display_copy: 'Kopēt projektu',
     error_failedToGenerate: "Aij! Pašlaik nevarējām ģenerēt jūsu uzdevumu. Lūdzu, pārbaudiet savienojumu un mēģiniet vēlreiz.",
+    error_apiKeyMissing: 'API atslēga nav konfigurēta. Ģenerators ir atspējots.',
 
     // Terms of Use
     terms_section1_title: '1. Laipni lūdzam SparkScript!',

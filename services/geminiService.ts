@@ -4,8 +4,6 @@ import type { PromptData, Language } from '../types';
 // This service now directly communicates with the Google Gemini API.
 // Ensure the API_KEY environment variable is available.
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 const getLanguageName = (langCode: Language): string => {
     switch (langCode) {
         case 'ru': return 'Russian';
@@ -86,6 +84,11 @@ const buildMetaPrompt = (data: PromptData, language: Language): string => {
 
 
 export async function* generateAppPromptStream(data: PromptData, language: Language): AsyncGenerator<string> {
+  if (!process.env.API_KEY) {
+    throw new Error("API Key is not configured. Please set the API_KEY environment variable to use the generator.");
+  }
+  
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const metaPrompt = buildMetaPrompt(data, language);
   
   try {
