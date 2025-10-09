@@ -7,7 +7,6 @@ interface InputFormProps {
   onGenerate: (data: PromptData) => void;
   isLoading: boolean;
   t: Translations[Language];
-  isApiKeyConfigured: boolean;
 }
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
@@ -39,7 +38,7 @@ const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = (p
 );
 
 
-export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, isApiKeyConfigured }) => {
+export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t }) => {
   const [appName, setAppName] = useState('');
   const [corePurpose, setCorePurpose] = useState('');
   const [features, setFeatures] = useState<string[]>(['']);
@@ -51,7 +50,6 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isApiKeyConfigured) return;
     onGenerate({ appName, corePurpose, features, targetAudience, techStack, styling, promptType });
   };
 
@@ -126,12 +124,12 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
       
       <button
         type="submit"
-        disabled={isLoading || !corePurpose.trim() || !isApiKeyConfigured}
+        disabled={isLoading || !corePurpose.trim()}
         className="w-full flex items-center justify-center bg-primary text-white font-bold py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 filter hover:brightness-110 shadow-lg shadow-primary/20"
       >
         {isLoading ? (
             <>
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <circle className="opacity-25" cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M2 10a8 8 0 018-8v2a6 6 0 00-6 6H2z"></path>
               </svg>
@@ -141,11 +139,6 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
             t.button_generate
         )}
       </button>
-      {!isApiKeyConfigured && (
-        <p className="text-center text-sm text-red-400 -mt-4">
-            {t.error_apiKeyMissing}
-        </p>
-      )}
     </form>
   );
 };

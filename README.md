@@ -2,16 +2,19 @@
 
 SparkScript is a modern web application designed to help developers generate detailed, structured prompts for AI development tools. It turns a simple app idea into a comprehensive software blueprint using the Google Gemini API.
 
+This project follows a secure, modern architecture where the React frontend communicates with a serverless backend function, ensuring that the Google Gemini API key is never exposed to the client's browser.
+
 ## Technology Stack
 
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router
-- **AI Integration:** Google Gemini API (`@google/genai`)
+- **Backend:** Serverless Function (e.g., Vercel Edge Function)
+- **AI Integration:** Google Gemini API (`@google/genai`) on the backend
 
 ---
 
 ## Project Setup
 
-To run this project locally, follow these steps:
+To run this project locally in a way that mimics a production environment, it is highly recommended to use the [Vercel CLI](https://vercel.com/docs/cli).
 
 1.  **Clone the repository:**
     ```bash
@@ -25,16 +28,24 @@ To run this project locally, follow these steps:
     npm install
     ```
 
-3.  **Set up your API Key:**
-    This project requires a Google Gemini API key. It is accessed via `process.env.API_KEY`. For local development, you can create a `.env.local` file in the root of the project and add your key:
-    ```
-    REACT_API_KEY=your_gemini_api_key_here
-    ```
-    The Vite configuration (`vite.config.ts`) is set up to read this variable. For production, you will need to set the `REACT_API_KEY` environment variable in your deployment environment.
-
-4.  **Run the development server:**
+3.  **Install the Vercel CLI:**
     ```bash
-    npm run dev
+    npm install -g vercel
+    ```
+
+4.  **Set up your Secret API Key:**
+    The Google Gemini API key is a secret and must only be used on the server. The Vercel CLI can read local environment variables for development.
+    
+    Create a file named `.env.local` in the root of the project and add your key:
+    ```
+    API_KEY=your_gemini_api_key_here
+    ```
+    **Important:** This file is for local development only and should be listed in your `.gitignore` file.
+
+5.  **Run the development server:**
+    Use the `vercel dev` command to run the application. This command will start the Vite dev server for the frontend and simultaneously run the serverless function in the `/api` directory, creating a complete development environment.
+    ```bash
+    vercel dev
     ```
     The application will be available at `http://localhost:3000`.
 
@@ -46,18 +57,20 @@ To create a production build of the app, run:
 ```bash
 npm run build
 ```
-This command bundles the app, compiles the TypeScript, and optimizes the Tailwind CSS, creating a `dist` folder with the static assets for your application.
+This command bundles the frontend application and prepares the serverless function for deployment.
 
 ---
 
 ## Deployment
 
-You can deploy the contents of the `dist` folder to any static site hosting service (e.g., Vercel, Netlify, GitHub Pages, Coolify, or a traditional web server).
+You can deploy this project to any hosting service that supports a Vite frontend and Node.js serverless functions (e.g., Vercel, Netlify).
 
-### Important: Server Configuration for Routing
+### 1. Configure the Environment Variable
+In your hosting provider's dashboard, you must set the `API_KEY` as a secret environment variable. This will make it securely available to your serverless function in production.
 
-This application uses `react-router-dom` with `BrowserRouter` for clean, user-friendly URLs (e.g., `/prompt-builder`). For this to work correctly, **your hosting server must be configured to handle client-side routing.**
+### 2. Configure the Build
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
 
-This means that any request to a path that isn't a static file (like `/prompt-builder` or `/about`) should be redirected to serve the `index.html` file. This allows the React application to take over and render the correct page.
-
-Most modern hosting providers have a simple way to configure this. Look for "rewrite rules" or "single-page application (SPA)" settings. A common configuration is to rewrite all requests that would otherwise result in a 404 error to `/index.html`.
+### 3. Server Configuration for Routing
+This application uses `react-router-dom` with `BrowserRouter` for clean URLs. Your hosting service must be configured to handle client-side routing by redirecting all non-asset requests to `/index.html`. Most modern Jamstack hosts (like Vercel and Netlify) do this automatically for Vite projects.
