@@ -13,7 +13,7 @@ const en = {
 
     // General
     lastUpdated: "Last Updated",
-    contactEmail: "hello@sparkscript.tech",
+    contactEmail: "sparkscriptstech@gmail.com",
 
     // Header & Footer
     nav_about: "About",
@@ -235,7 +235,7 @@ const ru = {
 
     // General
     lastUpdated: "Последнее обновление",
-    contactEmail: "hello@sparkscript.tech",
+    contactEmail: "sparkscriptstech@gmail.com",
 
     // Header & Footer
     nav_about: "О проекте",
@@ -439,7 +439,7 @@ const lv = {
 
     // General
     lastUpdated: "Pēdējo reizi atjaunināts",
-    contactEmail: "hello@sparkscript.tech",
+    contactEmail: "sparkscriptstech@gmail.com",
 
     // Header & Footer
     nav_about: "Par",
