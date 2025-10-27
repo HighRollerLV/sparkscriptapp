@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { InputForm } from '../components/InputForm';
 import { PromptDisplay } from '../components/PromptDisplay';
 import { generateAppPromptStream } from '../services/geminiService';
@@ -8,13 +9,24 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export const HomePage: React.FC = () => {
     const { t, language } = useLanguage();
-    
+    const location = useLocation();
+
     // State Management
     const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [initialData, setInitialData] = useState<Partial<PromptData> | null>(location.state?.scriptData || null);
 
     const isApiKeyConfigured = !!process.env.API_KEY;
+
+    useEffect(() => {
+        if (location.state?.scriptData) {
+            setInitialData(location.state.scriptData);
+            // Clear the state from history so it's not re-applied on refresh or back navigation
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
+
 
     // Prompt Generation
     const handleGeneratePrompt = useCallback(async (data: PromptData) => {
@@ -52,7 +64,7 @@ export const HomePage: React.FC = () => {
                 {t.about_hero_subtitle}
             </p>
             <div id="prompt-display-section" className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <InputForm onGenerate={handleGeneratePrompt} isLoading={isLoading} t={t} isApiKeyConfigured={isApiKeyConfigured} />
+                <InputForm onGenerate={handleGeneratePrompt} isLoading={isLoading} t={t} isApiKeyConfigured={isApiKeyConfigured} initialData={initialData} />
                 <PromptDisplay prompt={generatedPrompt} isLoading={isLoading} error={error} t={t} />
             </div>
         </div>

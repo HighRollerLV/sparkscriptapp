@@ -9,3 +9,8 @@ export interface PromptData {
 }
 
 export type Language = 'en' | 'ru' | 'lv';
+
+export interface ScriptTemplate {
+  id: string;
+  data: Omit<PromptData, 'appName' | 'styling' | 'promptType'>;
+}

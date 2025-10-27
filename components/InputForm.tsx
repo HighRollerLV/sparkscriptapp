@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { PromptData, Language } from '../types';
 import { FeatureInput } from './FeatureInput';
 import type { Translations } from '../utils/translations';
@@ -8,6 +8,7 @@ interface InputFormProps {
   isLoading: boolean;
   t: Translations[Language];
   isApiKeyConfigured: boolean;
+  initialData?: Partial<PromptData> | null;
 }
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
@@ -39,7 +40,7 @@ const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = (p
 );
 
 
-export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, isApiKeyConfigured }) => {
+export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, isApiKeyConfigured, initialData }) => {
   const [appName, setAppName] = useState('');
   const [corePurpose, setCorePurpose] = useState('');
   const [features, setFeatures] = useState<string[]>(['']);
@@ -47,6 +48,18 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
   const [techStack, setTechStack] = useState('');
   const [styling, setStyling] = useState('');
   const [promptType, setPromptType] = useState<'detailed' | 'minimal'>('detailed');
+
+  useEffect(() => {
+    if (initialData) {
+        setCorePurpose(initialData.corePurpose || '');
+        setFeatures(initialData.features && initialData.features.length > 0 ? initialData.features : ['']);
+        setTargetAudience(initialData.targetAudience || '');
+        setTechStack(initialData.techStack || '');
+        // Reset appName and styling for user input
+        setAppName('');
+        setStyling('');
+    }
+  }, [initialData]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -65,7 +78,7 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, t, 
                 </div>
                 <div>
                     <Label htmlFor="corePurpose">{t.form_label_corePurpose}</Label>
-                    <Textarea id="corePurpose" value={corePurpose} onChange={(e) => setCorePurpose(e.target.value)} placeholder={t.form_placeholder_corePurpose} />
+                    <Textarea id="corePurpose" value={corePurpose} onChange={(e) => setCorePurpose(e.target.value)} placeholder={t.form_placeholder_corePurpose} required />
                 </div>
             </div>
         </FormSection>

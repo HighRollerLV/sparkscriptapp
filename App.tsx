@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { ScriptsPage } from './pages/ScriptsPage';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 // Fix for TypeScript error: Property 'gtag' does not exist on type 'Window & typeof globalThis'.
@@ -49,6 +50,7 @@ const AppContent: React.FC = () => {
             <Route path="/" element={<Layout />}>
                 <Route index element={<AboutPage />} />
                 <Route path="prompt-builder" element={<HomePage />} />
+                <Route path="scripts" element={<ScriptsPage />} />
                 <Route path="terms" element={<TermsPage />} />
                 <Route path="privacy" element={<PrivacyPage />} />
             </Route>
