@@ -12,5 +12,7 @@ export type Language = 'en' | 'ru' | 'lv';
 
 export interface ScriptTemplate {
   id: string;
+  titleKey: string;
+  descriptionKey: string;
   data: Omit<PromptData, 'appName' | 'styling' | 'promptType'>;
 }

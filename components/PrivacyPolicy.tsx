@@ -24,9 +24,9 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({t}) => {
             <Section title={t.privacy_section2_title}>
                 <p>{t.privacy_section2_p1}</p>
                 <ul className="list-disc list-inside space-y-2">
-                    <li><strong>Account Info:</strong> When you sign up, we ask for personal info like your name and email address.</li>
-                    <li><strong>Payment Info:</strong> If you subscribe, you'll provide payment details. This is handled securely by our payment processor. We don't store your full credit card details.</li>
-                    <li><strong>Usage Info:</strong> We collect some technical data about how you use our service (like your IP address and which pages you visit). This helps us understand what's working and how to make the service better.</li>
+                    <li><strong>{t.privacy_section2_li1_strong}</strong> {t.privacy_section2_li1_text}</li>
+                    <li><strong>{t.privacy_section2_li2_strong}</strong> {t.privacy_section2_li2_text}</li>
+                    <li><strong>{t.privacy_section2_li3_strong}</strong> {t.privacy_section2_li3_text}</li>
                 </ul>
             </Section>
 
@@ -49,10 +49,10 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({t}) => {
             <Section title={t.privacy_section5_title}>
                  <p>{t.privacy_section5_p1}</p>
                  <ul className="list-disc list-inside space-y-2">
-                    <li><strong>Contract:</strong> We need it to provide the service you signed up for.</li>
-                    <li><strong>Consent:</strong> In some cases, you give us explicit permission.</li>
-                    <li><strong>Legitimate Interests:</strong> We have a valid business reason, like improving our service, as long as it doesn't override your rights.</li>
-                    <li><strong>Legal Obligation:</strong> Sometimes, the law requires us to process data.</li>
+                    <li><strong>{t.privacy_section5_li1_strong}</strong> {t.privacy_section5_li1_text}</li>
+                    <li><strong>{t.privacy_section5_li2_strong}</strong> {t.privacy_section5_li2_text}</li>
+                    <li><strong>{t.privacy_section5_li3_strong}</strong> {t.privacy_section5_li3_text}</li>
+                    <li><strong>{t.privacy_section5_li4_strong}</strong> {t.privacy_section5_li4_text}</li>
                 </ul>
             </Section>
 
