@@ -162,16 +162,16 @@ const buildMetaPrompt = (data: PromptData, language: Language): string => {
 };
 
 export async function* generateAppPromptStream(data: PromptData, language: Language): AsyncGenerator<string> {
-  // Get API key from Coolify environment variables
-  if (!process.env.REACT_APP_API_KEY) {
-    throw new Error("API Key is not configured. Please set REACT_APP_API_KEY in your Coolify environment variables.");
+  // Get API key from Coolify build-time environment
+  if (!process.env.API_KEY) {
+    throw new Error("API Key is not configured. Please set REACT_APP_API_KEY in your Coolify environment variables and redeploy.");
   }
 
   // Initialize AI provider
-  // Coolify securely injects the API key at runtime, so it's safe on the server
+  // Coolify injects REACT_APP_API_KEY at build time via Vite define
   const provider = new Groq({
-    apiKey: process.env.REACT_APP_API_KEY,
-    dangerouslyAllowBrowser: true, // Required for client-side usage with Coolify
+    apiKey: process.env.API_KEY,
+    dangerouslyAllowBrowser: true, // Required for client-side usage
   });
 
   const metaPrompt = buildMetaPrompt(data, language);
@@ -221,4 +221,3 @@ function handleProviderError(error: unknown): Error {
 
   return new Error("An error occurred while generating your prompt. Please check your API key is active and valid.");
 }
-
