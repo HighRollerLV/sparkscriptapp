@@ -1,22 +1,22 @@
 import type { ScriptTemplate } from '../types';
 
 export const scripts: ScriptTemplate[] = [
+    // WEBSITE & APP
     {
         id: 'todo-app',
-        // These keys must match the keys in translations.ts
         titleKey: 'script_title_todo',
         descriptionKey: 'script_desc_todo',
         data: {
+            category: 'website',
             corePurpose: 'A minimalist to-do application to help users organize and track their daily tasks.',
             features: [
-                'Users can add new tasks with a title and optional description.',
-                'Users can mark tasks as complete.',
-                'Users can view a list of all tasks, separated into active and completed.',
-                'Users can delete tasks.',
-                'Data is saved in the browser\'s local storage.'
+                'Add tasks with priority levels',
+                'Dark/Light mode toggle',
+                'LocalStorage persistence',
+                'Drag-and-drop reordering'
             ],
-            targetAudience: 'Individuals looking for a simple, no-frills productivity tool.',
-            techStack: 'React, TypeScript, Tailwind CSS, LocalStorage for persistence.',
+            targetAudience: 'Productivity seekers',
+            techStack: 'React, TypeScript, Tailwind CSS',
         }
     },
     {
@@ -24,16 +24,16 @@ export const scripts: ScriptTemplate[] = [
         titleKey: 'script_title_blog',
         descriptionKey: 'script_desc_blog',
         data: {
-            corePurpose: 'A simple, clean platform for users to write, publish, and share articles.',
+            category: 'website',
+            corePurpose: 'A clean platform for writers to publish markdown articles.',
             features: [
-                'User authentication (signup/login).',
-                'A rich text or markdown editor for writing posts.',
-                'Ability to create, edit, and delete posts.',
-                'Public view of all published posts.',
-                'Posts can be organized by categories or tags.'
+                'Markdown preview',
+                'Category filtering',
+                'Search functionality',
+                'Newsletter signup'
             ],
-            targetAudience: 'Writers, bloggers, content creators.',
-            techStack: 'Next.js, TypeScript, Tailwind CSS, a headless CMS like Strapi or a database like Supabase.',
+            targetAudience: 'Writers and bloggers',
+            techStack: 'Next.js, Supabase',
         }
     },
     {
@@ -41,67 +41,199 @@ export const scripts: ScriptTemplate[] = [
         titleKey: 'script_title_portfolio',
         descriptionKey: 'script_desc_portfolio',
         data: {
-            corePurpose: 'A personal portfolio website to showcase a developer\'s projects, skills, and professional experience.',
+            category: 'website',
+            corePurpose: 'A personal portfolio to showcase a developer\'s projects and skills.',
             features: [
-                'A home page with a brief introduction and hero section.',
-                'A "Projects" section with cards for each project, including a description, tech stack, and links.',
-                'An "About Me" section with a more detailed bio and skills list.',
-                'A contact form for visitors to send messages.',
-                'A responsive design that looks good on all devices.'
+                'Interactive project cards',
+                'Skills timeline',
+                'Contact form with validation',
+                'Social media integration'
             ],
-            targetAudience: 'Job recruiters, hiring managers, other developers.',
-            techStack: 'Astro, React/Vue, TypeScript, Tailwind CSS, and a service like EmailJS for the contact form.',
+            targetAudience: 'Recruiters and managers',
+            techStack: 'Astro, Tailwind',
+        }
+    },
+
+    // IMAGE GENERATION
+    {
+        id: 'img-cyberpunk',
+        titleKey: 'script_title_img_cyber',
+        descriptionKey: 'script_desc_img_cyber',
+        data: {
+            category: 'image',
+            corePurpose: 'A bustling futuristic city street at night.',
+            features: [
+                'Neon holographic advertisements',
+                'Wet pavement reflections',
+                'Cybernetic pedestrians',
+                'Cinematic fog'
+            ],
+            artStyle: 'Cinematic Photorealism',
+            aspectRatio: '16:9',
+            lighting: 'High-contrast neon glow',
+            colorPalette: 'Cyan, Magenta, Deep Shadow',
+            styling: 'Blade Runner aesthetic, high detail, 8k',
         }
     },
     {
-        id: 'ecommerce-storefront',
-        titleKey: 'script_title_ecommerce',
-        descriptionKey: 'script_desc_ecommerce',
+        id: 'img-macro',
+        titleKey: 'script_title_img_macro',
+        descriptionKey: 'script_desc_img_macro',
         data: {
-            corePurpose: 'A basic e-commerce storefront for a small business to display and sell products online.',
+            category: 'image',
+            corePurpose: 'Close up of a dew drop on a spider web.',
             features: [
-                'A product grid/list page to display all available products.',
-                'A dedicated page for each product with details, images, and an "Add to Cart" button.',
-                'A shopping cart page where users can review their items and quantities.',
-                'A checkout flow to collect shipping information.',
-                'Integration with a payment provider like Stripe.'
+                'Microscopic details',
+                'Refraction in water',
+                'Perfectly sharp web silk',
+                'Early morning light'
             ],
-            targetAudience: 'Small business owners, online shoppers.',
-            techStack: 'Next.js or Shopify Hydrogen, TypeScript, Tailwind CSS, and Stripe for payments.',
+            artStyle: 'Macro Photography',
+            aspectRatio: '1:1',
+            lighting: 'Soft golden hour morning sun',
+            colorPalette: 'Emerald green and silver',
+            styling: 'National Geographic style, bokeh background',
         }
     },
     {
-        id: 'social-media-feed',
-        titleKey: 'script_title_social',
-        descriptionKey: 'script_desc_social',
+        id: 'img-abstract',
+        titleKey: 'script_title_img_abstract',
+        descriptionKey: 'script_desc_img_abstract',
         data: {
-            corePurpose: 'A simple social media application where users can post short updates and interact with others\' posts.',
+            category: 'image',
+            corePurpose: 'Flowing liquid metal spheres in a void.',
             features: [
-                'User authentication.',
-                'A main feed displaying posts from all users in reverse chronological order.',
-                'A form for users to create and submit a new post.',
-                'The ability for users to "like" a post.',
-                'A display of the like count for each post.'
+                'Mercury-like texture',
+                'Iridescent reflections',
+                'Clean minimalism',
+                'Depth of field'
             ],
-            targetAudience: 'General audience, people looking to connect.',
-            techStack: 'React, Firebase for authentication and database, TypeScript, Tailwind CSS.',
+            artStyle: '3D Render / Abstract',
+            aspectRatio: '4:3',
+            lighting: 'Studio softbox lighting',
+            colorPalette: 'Metallic chrome, pastel purple',
+            styling: 'Futuristic gallery art, octane render',
+        }
+    },
+
+    // MUSIC & LYRICS
+    {
+        id: 'mus-lofi',
+        titleKey: 'script_title_mus_lofi',
+        descriptionKey: 'script_desc_mus_lofi',
+        data: {
+            category: 'music',
+            corePurpose: 'Lo-fi study track with a cozy, rainy-night atmosphere.',
+            genre: 'Lo-Fi Hip Hop',
+            mood: 'Relaxed / Melancholic',
+            tempo: '85 bpm',
+            lyricalTheme: 'Raining outside a window in an empty city',
+            features: [
+                'Vinyl crackle background',
+                'Muffled Rhodes piano',
+                'Boom bap drum beat',
+                'Subtle rain sfx'
+            ],
+            styling: 'Chillhop study girl vibes',
         }
     },
     {
-        id: 'recipe-book',
-        titleKey: 'script_title_recipe',
-        descriptionKey: 'script_desc_recipe',
+        id: 'mus-epic',
+        titleKey: 'script_title_mus_epic',
+        descriptionKey: 'script_desc_mus_epic',
         data: {
-            corePurpose: 'A digital recipe book where users can discover, save, and organize their favorite recipes.',
+            category: 'music',
+            corePurpose: 'Epic cinematic anthem with heroic rise and powerful climax.',
+            genre: 'Orchestral Cinematic',
+            mood: 'Triumphant / Powerful',
+            tempo: '110 bpm',
+            lyricalTheme: 'The rise of a forgotten hero',
             features: [
-                'A browsable/searchable gallery of recipes.',
-                'A detailed recipe page with ingredients, instructions, cooking time, and an image.',
-                'Users can create an account to save their favorite recipes to a personal collection.',
-                'A feature to add your own personal recipes to the collection.',
-                'Recipes can be categorized (e.g., "Dinner," "Dessert," "Vegan").'
+                'Heavy brass sections',
+                'Staccato violins',
+                'Taiko war drums',
+                'Etherial choir'
             ],
-            targetAudience: 'Home cooks, food enthusiasts.',
-            techStack: 'Vue.js or Svelte, TypeScript, Tailwind CSS, and a backend service like Supabase for data.',
+            styling: 'Hans Zimmer inspired trailer music',
+        }
+    },
+    {
+        id: 'mus-synth',
+        titleKey: 'script_title_mus_synth',
+        descriptionKey: 'script_desc_mus_synth',
+        data: {
+            category: 'music',
+            corePurpose: 'High-energy retro synth track for late-night highway drives.',
+            genre: 'Synthwave / Outrun',
+            mood: 'Energetic / Nostalgic',
+            tempo: '125 bpm',
+            lyricalTheme: 'Driving at midnight in a 1984 Ferrari',
+            features: [
+                'Analog bass pulses',
+                'Gated reverb snare',
+                'Glittering arpeggios',
+                'Dreamy pads'
+            ],
+            styling: 'Retro-futurism, driving music',
+        }
+    },
+
+    // VIDEO GENERATION
+    {
+        id: 'vid-drone',
+        titleKey: 'script_title_vid_drone',
+        descriptionKey: 'script_desc_vid_drone',
+        data: {
+            category: 'video',
+            corePurpose: 'Aerial drone shot over snowy mountain peaks.',
+            features: [
+                'Sun breaking over the horizon',
+                'Snow blowing off the ridges',
+                'Sharp mountain textures',
+                'Cinematic scale'
+            ],
+            motion: 'Medium',
+            cameraMovement: 'Smooth orbiting drone shot',
+            frameRate: '24fps',
+            styling: 'Hyper-realistic nature documentary',
+        }
+    },
+    {
+        id: 'vid-speed',
+        titleKey: 'script_title_vid_speed',
+        descriptionKey: 'script_desc_vid_speed',
+        data: {
+            category: 'video',
+            corePurpose: 'POV of a high-speed chase through a neon city.',
+            features: [
+                'Motion blur streaks',
+                'Reflecting light on wet roads',
+                'Passing futuristic skyscrapers',
+                'Vibrant light trails'
+            ],
+            motion: 'High',
+            cameraMovement: 'Fast tracking / POV',
+            frameRate: '60fps',
+            styling: 'Cyberpunk cinematic sequence',
+        }
+    },
+    {
+        id: 'vid-portrait',
+        titleKey: 'script_title_vid_port',
+        descriptionKey: 'script_desc_vid_port',
+        data: {
+            category: 'video',
+            corePurpose: 'A cyborg woman waking up in a lab.',
+            features: [
+                'Slow blink of eyes',
+                'Opening micro-panels on skin',
+                'Steam venting from machinery',
+                'Soft lab lighting'
+            ],
+            motion: 'Low',
+            cameraMovement: 'Extreme close-up pan',
+            frameRate: '30fps',
+            styling: 'Deeply emotional sci-fi realism',
         }
     }
 ];

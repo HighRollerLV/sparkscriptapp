@@ -1,0 +1,56 @@
+{
+  "name": "SparkScript - Professional AI Prompt Generator",
+  "short_name": "SparkScript",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14171A",
+  "theme_color": "#FFBE00",
+  "description": "Professional AI Prompt Generator for website building, app development, image generation, music production, and video creation. Create structured, technical prompts for AI tools like Cursor, Lovable, Bolt.new, Midjourney, Suno, and more.",
+  "categories": ["productivity", "developer-tools", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ]
+}

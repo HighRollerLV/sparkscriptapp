@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ContentPageLayout, Section } from './ContentPageLayout';
 import type { Language } from '../types';
@@ -16,9 +17,9 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({t}) => {
         <ContentPageLayout title={t.privacyPolicy}>
              <p className="text-sm text-gray-500"><strong>{t.lastUpdated}:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
+            {/* Fix: Only use privacy_section1_p1 as subsequent paragraphs are not defined in translations.ts */}
             <Section title={t.privacy_section1_title}>
                 <p>{t.privacy_section1_p1}</p>
-                <p>{t.privacy_section1_p2}</p>
             </Section>
 
             <Section title={t.privacy_section2_title}>

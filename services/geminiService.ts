@@ -1,93 +1,125 @@
 import { GoogleGenAI } from '@google/genai';
 import type { PromptData, Language } from '../types';
 
-// This service now directly communicates with the Google Gemini API.
-// Ensure the API_KEY environment variable is available.
-
 const getLanguageName = (langCode: Language): string => {
-    switch (langCode) {
-        case 'ru': return 'Russian';
-        case 'lv': return 'Latvian';
-        case 'en':
-        default: return 'English';
-    }
-}
+  switch (langCode) {
+    case 'ru': return 'Russian';
+    case 'lv': return 'Latvian';
+    case 'en':
+    default: return 'English';
+  }
+};
 
 const buildMetaPrompt = (data: PromptData, language: Language): string => {
   const featuresList = data.features.filter(f => f.trim() !== '').map(f => `- ${f}`).join('\n');
+  const featuresInline = data.features.filter(f => f.trim() !== '').join(', ');
   const languageInstruction = `\n\n**Crucial Language Instruction:** Your entire output must be in ${getLanguageName(language)}.`;
+  const promptType = data.promptType;
 
-  if (data.promptType === 'minimal') {
-    return `
-      You are an expert prompt writer. Your task is to distill a user's app idea into a concise, high-level prompt that focuses on its core values. This prompt should be more than a single paragraph but much less detailed than a full technical specification. It's designed to give an AI developer a clear, actionable starting point without overwhelming it with minor details.
-
-      The user has provided the following details:
-      - **App Name:** ${data.appName || 'Not specified'}
-      - **Core Purpose:** ${data.corePurpose || 'Not specified'}
-      - **Key Features:**
-      ${featuresList || '- Not specified'}
-      - **Target Audience:** ${data.targetAudience || 'Not specified'}
-      - **Preferred Tech Stack:** ${data.techStack || 'React with TypeScript and Tailwind CSS'}
-      - **Desired Styling / Theme:** ${data.styling || 'Modern and minimalist'}
-
-      Generate a prompt structured with the following three sections. Use simple Markdown for clarity (bold headings and bullet points).
-
-      **1. Primary Goal:**
-      Start with a single, clear sentence explaining the application's main objective and for whom it is built.
-
-      **2. Core Features:**
-      List the 3-5 most critical features as a bulleted list. Each feature should be a brief, descriptive phrase.
-
-      **3. Key Technologies & Style:**
-      Briefly mention the desired tech stack and the visual theme in one sentence.
-
-      The final output should be a short, easy-to-read block of text that captures the essence of the application. It should be direct, to the point, and ready for an AI developer.
-    ` + languageInstruction;
+  if (data.category === 'image') {
+    if (promptType === 'simple') {
+      return `Create a concise AI image prompt:
+        ${data.corePurpose}. Style: ${data.artStyle}. Elements: ${featuresList}` + languageInstruction;
+    }
+    if (promptType === 'medium') {
+      return `You are a prompt engineer for AI image generation. Create a detailed but focused prompt:
+        - Concept: ${data.corePurpose}
+        - Style: ${data.artStyle}
+        - Lighting: ${data.lighting}
+        - Elements: ${featuresList}
+        Keep it clear and structured without excessive detail.` + languageInstruction;
+    }
+    return `You are a world-class prompt engineer specializing in AI image generation. Create a professional, descriptive, and technical prompt based on:
+      - Concept: ${data.corePurpose}
+      - Elements: ${featuresList}
+      - Style: ${data.artStyle}
+      - Aspect Ratio: ${data.aspectRatio}
+      - Lighting: ${data.lighting}
+      - Palette: ${data.colorPalette}
+      - Overall Theme: ${data.styling}
+      Output a structured prompt starting with a "Summary Prompt" and a "Technical Breakdown".` + languageInstruction;
   }
 
-  // Default to the detailed prompt
-  return `
-    You are an expert prompt engineer creating a detailed development plan for an AI developer. Your task is to translate a user's app idea into a comprehensive, structured prompt that outlines the entire application. The output should be a high-level architectural guide, not a low-level implementation plan.
+  if (data.category === 'music') {
+    if (promptType === 'simple') {
+      return `Output only a single line in this format:
+Style / Prompt Field (copy-paste this):
+${data.genre}, ${data.mood}, ${data.tempo}, ${data.styling}${featuresInline ? `, ${featuresInline}` : ''}
+Keep it a quick description for Suno. Do not include lyrics.` + languageInstruction;
+    }
+    if (promptType === 'medium') {
+      return `Output only a single line in this format:
+Style / Prompt Field (copy-paste this):
+${data.genre}, ${data.mood}, ${data.tempo}, ${data.styling}${featuresInline ? `, ${featuresInline}` : ''}, ${data.lyricalTheme}
+Make it more refined and descriptive than simple. Do not include lyrics.` + languageInstruction;
+    }
+    return `Create a professional Suno-ready output matching this exact structure and headings:
+Style / Prompt Field (copy-paste this):
+<one line of styles>
+Lyrics Field (custom lyrics with structure tags):
+<lyrics with tags and section notes>
+Rules:
+- Use the style line to combine: ${data.genre}, ${data.mood}, ${data.tempo}, ${data.styling}${featuresInline ? `, ${featuresInline}` : ''}.
+- Write original lyrics based on: ${data.lyricalTheme}.
+- Use tags like [Intro], [Verse 1], [Pre-Chorus], [Chorus], [Verse 2], [Pre-Chorus], [Chorus], [Bridge], [Guitar Solo / Build], [Final Chorus], [Outro].
+- Add short parenthetical performance notes where helpful (e.g., (soft, breathy)).
+- Keep it similar in length and style to the provided example.
+- Output only the two sections, no extra commentary.` + languageInstruction;
+  }
 
-    The user has provided the following details:
-    - **App Name:** ${data.appName || 'Not specified'}
-    - **Core Purpose:** ${data.corePurpose || 'Not specified'}
-    - **Key Features:**
-    ${featuresList || '- Not specified'}
-    - **Target Audience:** ${data.targetAudience || 'Not specified'}
-    - **Preferred Tech Stack:** ${data.techStack || 'React with TypeScript and Tailwind CSS'}
-    - **Desired Styling / Theme:** ${data.styling || 'Modern and minimalist'}
+  if (data.category === 'video') {
+    if (promptType === 'simple') {
+      return `Create a concise video generation prompt:
+        ${data.corePurpose}. Motion: ${data.motion}. Elements: ${featuresList}` + languageInstruction;
+    }
+    if (promptType === 'medium') {
+      return `You are a video director. Create a focused prompt for AI video generation:
+        - Scene: ${data.corePurpose}
+        - Motion: ${data.motion}
+        - Camera: ${data.cameraMovement}
+        - Elements: ${featuresList}
+        Keep it visual and actionable.` + languageInstruction;
+    }
+    return `You are an expert cinematographer and AI video director. Create a prompt for modern AI video models based on:
+      - Core Action: ${data.corePurpose}
+      - Elements in frame: ${featuresList}
+      - Motion: ${data.motion}
+      - Camera: ${data.cameraMovement}
+      - Frame Rate: ${data.frameRate}
+      - Aesthetic: ${data.styling}
+      Output a "Director's Script" and a "Technical Command".` + languageInstruction;
+  }
 
-    Generate a prompt using simple Markdown. The prompt must be structured with the following sections. Start directly with the first heading.
-
-    # Project Overview
-    Provide a concise summary of the application's purpose and its target audience.
-
-    # Core User Flows
-    Describe the primary ways a user will interact with the application. Frame these as user stories. For each key feature, explain the step-by-step process from the user's perspective.
-    *Example: For a to-do app, a flow would be: "1. User opens the app and sees a list of their tasks. 2. User clicks an 'Add Task' button. 3. A form appears to enter the task details. 4. User saves the task, and it appears in the list."*
-
-    # Key Pages / Components
-    List and briefly describe the main screens or reusable components required for the application. Think in terms of UI structure, not code components.
-    *Example: "Dashboard Page", "Task Creation Modal", "Settings Page".*
-
-    # Data Model
-    Describe the main data entities the application will manage. For each entity, list its key properties in plain English.
-    *Example: "Task: Should include a unique ID, a title (text), a description (text), a due date (date), and a completion status (boolean)."*
-
-    # Styling and UX Guidelines
-    Elaborate on the desired look, feel, and user experience. Mention the theme, color palette, and any important interaction principles.
-
-    **Crucial Final Instruction:** Your entire output is a high-level prompt for an AI developer. Do NOT write any code, suggest file names, or define specific function signatures. Focus on describing the application's requirements, structure, and user experience in plain English.
-  ` + languageInstruction;
+  // Website category
+  if (promptType === 'simple') {
+    return `Create a quick web design brief:
+      ${data.appName}: ${data.corePurpose}. Features: ${featuresList}. Style: ${data.styling}` + languageInstruction;
+  }
+  if (promptType === 'medium') {
+    return `You are a web designer. Create a balanced design specification for web builders (Lovable, Bolt.new, etc.):
+      - App Name: ${data.appName}
+      - Purpose: ${data.corePurpose}
+      - Target Audience: ${data.targetAudience}
+      - Key features: ${featuresList}
+      - Visual Style: ${data.styling}
+      Focus on visual design and layout. Be concise but complete.` + languageInstruction;
+  }
+  return `You are an expert web designer and UI/UX specialist. Create a professional design and layout specification for web builders (Lovable, Bolt.new, etc.):
+    - App Name: ${data.appName}
+    - Purpose: ${data.corePurpose}
+    - Key Features to Display: ${featuresList}
+    - Target Audience: ${data.targetAudience}
+    - Visual Style/Theme: ${data.styling}
+    Focus on the visual design, layout structure, color scheme, typography, component styling, and user experience. Do NOT include coding instructions or technical implementation details. Describe what the website should look like, how it should feel, and how users should interact with it visually.` + languageInstruction;
 };
 
-
 export async function* generateAppPromptStream(data: PromptData, language: Language): AsyncGenerator<string> {
+  // Validate API key is available
   if (!process.env.API_KEY) {
-    throw new Error("API Key is not configured. Please set the API_KEY environment variable to use the generator.");
+    throw new Error("API Key is not configured. Please set the REACT_APP_API_KEY in your .env file.");
   }
-  
+
+  // Create instance right before use to ensure the latest API key is used
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const metaPrompt = buildMetaPrompt(data, language);
   
@@ -98,16 +130,26 @@ export async function* generateAppPromptStream(data: PromptData, language: Langu
     });
 
     for await (const chunk of response) {
-      yield chunk.text;
+      if (chunk.text) {
+        yield chunk.text;
+      }
+    }
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+
+    // Check for specific error types
+    if (error instanceof Error) {
+      if (error.message.includes("401") || error.message.includes("authentication") || error.message.includes("unauthorized")) {
+        throw new Error("API Key authentication failed. Please verify your Google Gemini API key is valid and has the necessary permissions.");
+      }
+      if (error.message.includes("404") || error.message.includes("not found")) {
+        throw new Error("Gemini API model not found. Please verify your API has access to gemini-2.0-flash.");
+      }
+      if (error.message.includes("429") || error.message.includes("rate limit")) {
+        throw new Error("Rate limit exceeded. Please wait a moment and try again.");
+      }
     }
 
-  } catch (error) {
-    console.error("Error calling Gemini API:", error);
-    if (error instanceof Error) {
-        // Re-throw the original error to be handled by the component.
-        throw new Error(`[Gemini API Error] ${error.message}`);
-    }
-    // Fallback for unknown errors
-    throw new Error("An unknown error occurred while communicating with the AI service.");
+    throw new Error("An error occurred while generating your prompt. Please ensure your API key is active and valid.");
   }
 }

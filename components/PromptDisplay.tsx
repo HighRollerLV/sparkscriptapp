@@ -14,6 +14,25 @@ interface PromptDisplayProps {
   t: Translations[Language];
 }
 
+interface HeadingProps {
+  children?: React.ReactNode;
+}
+
+interface ListProps {
+  children?: React.ReactNode;
+}
+
+interface ParagraphProps {
+  children?: React.ReactNode;
+}
+
+interface CodeProps {
+  inline?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+  [key: string]: unknown;
+}
+
 const CopyIcon: React.FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -34,49 +53,47 @@ const SkeletonLoader: React.FC = () => (
             <div className="h-4 bg-background rounded w-full"></div>
             <div className="h-4 bg-background rounded w-5/6"></div>
         </div>
-        <div className="space-y-4">
-            <div className="h-6 bg-background rounded w-1/2"></div>
-            <div className="h-4 bg-background rounded w-full"></div>
-            <div className="h-4 bg-background rounded w-5/6"></div>
-        </div>
     </div>
 );
 
 export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading, error, t }) => {
     const [isCopied, setIsCopied] = useState(false);
-    
     const syntaxTheme = vscDarkPlus;
 
     const markdownComponents = {
-        h1: ({ node, ...props }) => (
-            <h1 className="flex items-center gap-3 text-2xl font-bold text-primary border-b border-background pb-2 mb-4" {...props}>
+        h1: ({ children }: HeadingProps) => (
+            <h1 className="flex items-center gap-3 text-2xl font-bold text-primary border-b border-background pb-2 mb-4">
                 <FiFileText className="text-primary"/>
+                {children}
             </h1>
         ),
-        h2: ({ node, ...props }) => (
-            <h2 className="flex items-center gap-2 text-xl font-semibold text-white mt-6 mb-3" {...props}>
+        h2: ({ children }: HeadingProps) => (
+            <h2 className="flex items-center gap-2 text-xl font-semibold text-white mt-6 mb-3">
                 <FiChevronsRight className="text-gray-500" />
+                {children}
             </h2>
         ),
-        ul: ({ node, ...props }) => <ul className="space-y-2 list-inside" {...props} />,
-        li: ({ node, ...props }) => (
-            <li className="flex items-start gap-3 text-gray-200" {...props}>
+        ul: ({ children }: ListProps) => <ul className="space-y-2 list-inside my-4">{children}</ul>,
+        li: ({ children }: ListProps) => (
+            <li className="flex items-start gap-3 text-gray-200">
                 <FiChevronRight className="text-gray-500 mt-1.5 flex-shrink-0" />
-                <span className="flex-grow">{props.children}</span>
+                <span className="flex-grow">{children}</span>
             </li>
         ),
-        p: ({ node, ...props }) => <p className="text-gray-200 leading-relaxed" {...props} />,
-        code({ node, className, children, ...props }) {
+        p: ({ children }: ParagraphProps) => <p className="text-gray-200 leading-relaxed mb-4">{children}</p>,
+        code({ inline, className, children, ...props }: CodeProps) {
             const match = /language-(\w+)/.exec(className || '');
-            return match ? (
-                <div className="my-4 relative text-sm">
-                    <div className="absolute top-2 right-2 text-xs text-gray-400 flex items-center gap-1"><FiCode /> {match[1]}</div>
-                    <SyntaxHighlighter style={syntaxTheme} language={match[1]} PreTag="div" {...props}>
+            return !inline && match ? (
+                <div className="my-6 relative text-sm">
+                    <div className="absolute top-2 right-2 text-xs text-gray-400 flex items-center gap-1 z-10">
+                        <FiCode /> {match[1]}
+                    </div>
+                    <SyntaxHighlighter style={syntaxTheme} language={match[1]} PreTag="div" className="rounded-lg border border-white/5">
                         {String(children).replace(/\n$/, '')}
                     </SyntaxHighlighter>
                 </div>
             ) : (
-                <code className="bg-background text-primary px-1.5 py-1 rounded-md text-sm" {...props}>
+                <code className="bg-background text-primary px-1.5 py-1 rounded-md text-sm font-mono border border-white/5" {...props}>
                     {children}
                 </code>
             );
@@ -97,22 +114,16 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
         }
     };
     
-    const renderContent = () => {
-        if (isLoading && !prompt) {
-            return <SkeletonLoader />;
-        }
-
-        if (error) {
-            return (
+    return (
+        <div className="bg-surface p-6 rounded-xl shadow-lg h-full min-h-[500px] lg:min-h-0 relative overflow-y-auto border border-white/5">
+            {isLoading && !prompt ? (
+                <SkeletonLoader />
+            ) : error ? (
                 <div className="text-red-400 bg-red-900/30 border border-red-700 p-4 rounded-lg text-center">
                     <h4 className="font-bold mb-2">{t.display_error_title}</h4>
                     <p className="text-sm">{error}</p>
                 </div>
-            );
-        }
-
-        if (!prompt) {
-            return (
+            ) : !prompt ? (
                 <div className="text-center text-gray-500 flex flex-col items-center justify-center h-full">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -120,39 +131,31 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt, isLoading,
                     <h3 className="text-lg font-semibold text-gray-200">{t.display_placeholder_title}</h3>
                     <p className="mt-1 max-w-sm">{t.display_placeholder_desc}</p>
                 </div>
-            );
-        }
-        
-        return (
-            <div>
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-700">
-                    <h3 className="text-xl font-bold text-white">
-                        {t.display_generated_title}
-                    </h3>
-                    <button
-                        onClick={handleCopy}
-                        className="bg-background text-gray-300 px-4 py-2 text-sm rounded-md hover:bg-black transition-colors flex items-center gap-2 border border-surface"
-                    >
-                        {isCopied ? <CheckIcon /> : <CopyIcon />}
-                        {isCopied ? t.display_copied : t.display_copy}
-                    </button>
+            ) : (
+                <div>
+                    <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-700">
+                        <h3 className="text-xl font-bold text-white">
+                            {t.display_generated_title}
+                        </h3>
+                        <button
+                            onClick={handleCopy}
+                            className="bg-background text-gray-300 px-4 py-2 text-sm rounded-md hover:text-primary transition-colors flex items-center gap-2 border border-white/5"
+                        >
+                            {isCopied ? <CheckIcon /> : <CopyIcon />}
+                            {isCopied ? t.display_copied : t.display_copy}
+                        </button>
+                    </div>
+                    <div className="prose max-w-none prose-p:text-gray-200 prose-li:text-gray-200">
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={markdownComponents}
+                        >
+                            {prompt}
+                        </ReactMarkdown>
+                        {isLoading && <span className="inline-block w-2.5 h-5 bg-primary animate-pulse ml-1 rounded-sm"></span>}
+                    </div>
                 </div>
-                <div className="prose max-w-none prose-p:text-gray-200 prose-li:text-gray-200">
-                    <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={markdownComponents}
-                    >
-                        {prompt}
-                    </ReactMarkdown>
-                    {isLoading && <span className="inline-block w-2.5 h-5 bg-primary animate-pulse ml-1 rounded-sm"></span>}
-                </div>
-            </div>
-        );
-    };
-
-    return (
-        <div className="bg-surface p-6 rounded-xl shadow-lg h-full min-h-[500px] lg:min-h-0 relative overflow-y-auto">
-            {renderContent()}
+            )}
         </div>
     );
 };

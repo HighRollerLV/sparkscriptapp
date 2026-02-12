@@ -1,76 +1,103 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { scripts } from '../data/scripts';
 import { ScriptCard } from '../components/ScriptCard';
-import { FiMousePointer, FiDatabase, FiEdit3, FiCopy } from 'react-icons/fi';
-
-const TutorialStep: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
-    <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-12 h-12 bg-surface rounded-lg flex items-center justify-center text-primary text-2xl">
-            {icon}
-        </div>
-        <div>
-            <h4 className="font-bold text-white text-lg mb-1">{title}</h4>
-            <p className="text-gray-400 text-sm">{children}</p>
-        </div>
-    </div>
-);
+import { FiLayout, FiImage, FiMusic, FiVideo, FiGrid } from 'react-icons/fi';
+import type { PromptCategory } from '../types';
 
 export const ScriptsPage: React.FC = () => {
   const { t } = useLanguage();
+  const [filter, setFilter] = useState<PromptCategory | 'all'>('all');
 
   usePageMeta(t.seo_scripts_title, t.seo_scripts_desc, '/scripts');
 
+  const filteredScripts = useMemo(() => {
+    if (filter === 'all') return scripts;
+    return scripts.filter(s => s.data.category === filter);
+  }, [filter]);
+
+  const filterOptions: { id: PromptCategory | 'all'; label: string; icon: React.ReactNode }[] = [
+    { id: 'all', label: 'All', icon: <FiGrid /> },
+    { id: 'website', label: t.cat_website, icon: <FiLayout /> },
+    { id: 'image', label: t.cat_image, icon: <FiImage /> },
+    { id: 'music', label: t.cat_music, icon: <FiMusic /> },
+    { id: 'video', label: t.cat_video, icon: <FiVideo /> },
+  ];
+
   return (
-    <div className="max-w-5xl mx-auto animate-fade-in">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+    <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-6xl mx-auto px-4"
+    >
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight tracking-tight">
             {t.scripts_page_title_part1}{' '}
             <span className="text-primary">{t.scripts_page_title_part2_highlight}</span>
         </h1>
-        <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             {t.scripts_page_subtitle}
         </p>
       </div>
 
-      <section className="bg-surface p-8 rounded-xl shadow-lg mb-16">
-        <h2 className="text-3xl font-bold text-center mb-4 text-white">{t.scripts_seo_title}</h2>
-        <div className="text-gray-300 space-y-4 max-w-3xl mx-auto text-center">
-            <p>{t.scripts_seo_desc_p1}</p>
-            <p>{t.scripts_seo_desc_p2}</p>
-        </div>
-
-        <div className="mt-10">
-            <h3 className="text-2xl font-bold text-center mb-8 text-primary">{t.scripts_how_to_title}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <TutorialStep icon={<FiMousePointer />} title={t.scripts_how_to_step1_title}>
-                    {t.scripts_how_to_step1_desc}
-                </TutorialStep>
-                <TutorialStep icon={<FiDatabase />} title={t.scripts_how_to_step2_title}>
-                    {t.scripts_how_to_step2_desc}
-                </TutorialStep>
-                <TutorialStep icon={<FiEdit3 />} title={t.scripts_how_to_step3_title}>
-                    {t.scripts_how_to_step3_desc}
-                </TutorialStep>
-                 <TutorialStep icon={<FiCopy />} title={t.scripts_how_to_step4_title}>
-                    {t.scripts_how_to_step4_desc}
-                </TutorialStep>
-            </div>
-        </div>
-      </section>
+      {/* Filter Navigation */}
+      <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {filterOptions.map((opt) => (
+              <button
+                  key={opt.id}
+                  onClick={() => setFilter(opt.id)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold transition-all border-2 text-sm ${
+                      filter === opt.id 
+                      ? 'bg-primary text-background border-primary shadow-lg shadow-primary/10' 
+                      : 'bg-surface text-gray-400 border-white/5 hover:border-primary/50'
+                  }`}
+              >
+                  {opt.icon}
+                  {opt.label}
+              </button>
+          ))}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {scripts.map((script) => (
+        {filteredScripts.map((script) => (
           <ScriptCard 
             key={script.id}
-            title={t[script.titleKey]}
-            description={t[script.descriptionKey]}
+            title={t[script.titleKey] || script.titleKey}
+            description={t[script.descriptionKey] || script.descriptionKey}
             scriptData={script.data}
             buttonText={t.script_use_button}
           />
         ))}
       </div>
-    </div>
+
+      <section className="mt-24 bg-surface p-10 rounded-2xl shadow-xl border border-white/5 text-center">
+        <h2 className="text-3xl font-black mb-6 text-white">{t.scripts_how_to_title}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="space-y-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4 font-black text-xl">1</div>
+                <h3 className="font-bold text-white">{t.scripts_how_to_step1_title}</h3>
+                <p className="text-sm text-gray-400">{t.scripts_how_to_step1_desc}</p>
+            </div>
+            <div className="space-y-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4 font-black text-xl">2</div>
+                <h3 className="font-bold text-white">{t.scripts_how_to_step2_title}</h3>
+                <p className="text-sm text-gray-400">{t.scripts_how_to_step2_desc}</p>
+            </div>
+            <div className="space-y-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4 font-black text-xl">3</div>
+                <h3 className="font-bold text-white">{t.scripts_how_to_step3_title}</h3>
+                <p className="text-sm text-gray-400">{t.scripts_how_to_step3_desc}</p>
+            </div>
+            <div className="space-y-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4 font-black text-xl">4</div>
+                <h3 className="font-bold text-white">{t.scripts_how_to_step4_title}</h3>
+                <p className="text-sm text-gray-400">{t.scripts_how_to_step4_desc}</p>
+            </div>
+        </div>
+      </section>
+    </motion.div>
   );
 };

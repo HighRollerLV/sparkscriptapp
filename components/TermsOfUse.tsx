@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ContentPageLayout, Section } from './ContentPageLayout';
 import type { Language } from '../types';
@@ -12,30 +13,28 @@ export const TermsOfUse: React.FC<TermsOfUseProps> = ({t}) => {
         <ContentPageLayout title={t.termsOfUse}>
             <p className="text-sm text-gray-500"><strong>{t.lastUpdated}:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
+            {/* Fix: Only use terms_section1_p1 as subsequent paragraphs are not defined in translations.ts */}
             <Section title={t.terms_section1_title}>
                 <p>{t.terms_section1_p1}</p>
-                <p>{t.terms_section1_p2}</p>
-                <p>{t.terms_section1_p3}</p>
             </Section>
 
+            {/* Fix: Only use terms_section2_p1 as subsequent paragraphs are not defined in translations.ts */}
             <Section title={t.terms_section2_title}>
                 <p>{t.terms_section2_p1}</p>
-                <p>{t.terms_section2_p2}</p>
             </Section>
 
+            {/* Fix: Only use terms_section3_p1 as subsequent paragraphs are not defined in translations.ts */}
             <Section title={t.terms_section3_title}>
                 <p>{t.terms_section3_p1}</p>
-                <p>{t.terms_section3_p2}</p>
-                <p>{t.terms_section3_p3}</p>
             </Section>
 
             <Section title={t.terms_section4_title}>
                 <p>{t.terms_section4_p1}</p>
             </Section>
 
+            {/* Fix: Only use terms_section5_p1 as subsequent paragraphs are not defined in translations.ts */}
             <Section title={t.terms_section5_title}>
                 <p>{t.terms_section5_p1}</p>
-                <p>{t.terms_section5_p2}</p>
             </Section>
 
             <Section title={t.terms_section6_title}>

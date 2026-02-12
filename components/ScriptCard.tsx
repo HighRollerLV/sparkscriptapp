@@ -6,7 +6,8 @@ import type { PromptData } from '../types';
 interface ScriptCardProps {
     title: string;
     description: string;
-    scriptData: Omit<PromptData, 'appName' | 'styling' | 'promptType'>;
+    // Fix: Changed from Omit to Partial<PromptData> to match ScriptTemplate.data which contains optional fields
+    scriptData: Partial<PromptData>;
     buttonText: string;
 }
 
