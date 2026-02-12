@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputForm } from '../components/InputForm';
 import { PromptDisplay } from '../components/PromptDisplay';
-import { generateAppPromptStream } from '../services/geminiService';
+import { generateAppPromptStream } from '../services/artificialService';
 import { usePageMeta } from '../hooks/usePageMeta';
 import type { PromptData, PromptCategory } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
