@@ -78,16 +78,17 @@ export const HomePage: React.FC = () => {
                     <span className="text-primary">{t.generator_title_part2_highlight}</span>
                 </h1>
 
-                <div className="flex flex-col items-center gap-4">
-                    <div className="mb-2">
-                        <SocialShare
-                            title="SparkScript AI Prompt Generator"
-                            description="Create precision prompts for Cursor, Lovable, Midjourney, Suno, and more"
-                        />
-                    </div>
+                {/* Social Share Icons */}
+                <div className="flex justify-center mb-6">
+                    <SocialShare
+                        title="SparkScript AI Prompt Generator"
+                        description="Create precision prompts for Cursor, Lovable, Midjourney, Suno, and more"
+                    />
+                </div>
 
+                <div className="flex flex-col items-center gap-6">
                     {/* Category Navigation */}
-                    <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
+                    <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
                         {categories.map((cat) => (
                             <button
                                 key={cat.id}

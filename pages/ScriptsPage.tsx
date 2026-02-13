@@ -1,11 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { scripts } from '../data/scripts';
 import { ScriptCard } from '../components/ScriptCard';
-import { SocialShare } from '../components/SocialShare';
 import { FiLayout, FiImage, FiMusic, FiVideo, FiGrid } from 'react-icons/fi';
 import type { PromptCategory } from '../types';
 
@@ -40,30 +38,9 @@ export const ScriptsPage: React.FC = () => {
             {t.scripts_page_title_part1}{' '}
             <span className="text-primary">{t.scripts_page_title_part2_highlight}</span>
         </h1>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-6">
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             {t.scripts_page_subtitle}
         </p>
-
-        {/* Additional descriptive content */}
-        <div className="max-w-3xl mx-auto text-gray-300 mb-6 space-y-3">
-            <p className="text-base leading-relaxed">
-                Browse our expertly crafted collection of AI prompt templates designed for professional results.
-                Each template is optimized for specific use cases and can be customized in our{' '}
-                <Link to="/prompt-builder" className="text-primary hover:underline">prompt generator</Link>.
-            </p>
-            <p className="text-base leading-relaxed">
-                Our library includes templates for web development (SaaS apps, portfolios, e-commerce),
-                image generation (cyberpunk, macro photography, abstract art), music production (lo-fi, orchestral, synthwave),
-                and video creation (drone shots, speed sequences, portraits). Start with proven prompts and adapt them to your vision.
-            </p>
-        </div>
-
-        <div className="flex justify-center mb-6">
-            <SocialShare
-                title="SparkScript AI Prompt Templates"
-                description="Browse expert AI prompt templates for development, images, music, and video"
-            />
-        </div>
       </div>
 
       {/* Filter Navigation */}
