@@ -1,0 +1,7 @@
+# Redirect www to non-www
+https://www.sparkscript.tech/* https://sparkscript.tech/:splat 301!
+http://www.sparkscript.tech/* https://sparkscript.tech/:splat 301!
+
+# SPA fallback
+/*    /index.html   200
+

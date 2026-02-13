@@ -27,6 +27,12 @@ export default defineConfig(({ mode }) => {
       // Enable CSS code splitting
       cssCodeSplit: true,
 
+      // Enable minification with esbuild (faster and built-in)
+      minify: 'esbuild',
+
+      // Optimize source maps for production
+      sourcemap: false, // Disable source maps in production for smaller bundle
+
       // Optimize rollup output with manual chunks
       rollupOptions: {
         output: {

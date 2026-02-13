@@ -71,9 +71,9 @@ export const Header: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25" />
                   </svg>
               </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <div className="text-2xl font-bold text-white tracking-tight">
               <span className="text-primary">Spark</span>Script
-            </h1>
+            </div>
           </Link>
           
           {/* Desktop Navigation */}

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputForm } from '../components/InputForm';
 import { PromptDisplay } from '../components/PromptDisplay';
+import { SocialShare } from '../components/SocialShare';
 import { generateAppPromptStream } from '../services/artificialService';
 import { usePageMeta } from '../hooks/usePageMeta';
 import type { PromptData, PromptCategory } from '../types';
@@ -78,6 +79,13 @@ export const HomePage: React.FC = () => {
                 </h1>
 
                 <div className="flex flex-col items-center gap-4">
+                    <div className="mb-2">
+                        <SocialShare
+                            title="SparkScript AI Prompt Generator"
+                            description="Create precision prompts for Cursor, Lovable, Midjourney, Suno, and more"
+                        />
+                    </div>
+
                     {/* Category Navigation */}
                     <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
                         {categories.map((cat) => (

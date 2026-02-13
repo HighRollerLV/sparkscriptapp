@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, Variants } from 'framer-motion';
 import { FiZap, FiFeather, FiSend, FiExternalLink, FiLayout, FiImage, FiMusic, FiVideo, FiCode, FiDatabase, FiBox, FiCpu } from 'react-icons/fi';
+import { SocialShare } from './SocialShare';
 import type { Language } from '../types';
 import type { Translations } from '../utils/translations';
 
@@ -96,7 +97,7 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                 </motion.div>
                 <motion.h1 
                     variants={itemVariants}
-                    className="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tight"
+                    className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight"
                 >
                     {t.about_hero_title_part1}{' '}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-amber-400 to-amber-600 drop-shadow-sm">
@@ -111,11 +112,38 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                 </motion.h1>
                 <motion.p 
                     variants={itemVariants}
-                    className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
+                    className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed"
                 >
                     {t.about_hero_subtitle}
                 </motion.p>
-                <motion.div 
+
+                {/* Additional SEO-focused content */}
+                <motion.div
+                    variants={itemVariants}
+                    className="max-w-4xl mx-auto text-left mb-12 space-y-4"
+                >
+                    <p className="text-base text-gray-300 leading-relaxed">
+                        SparkScript is the ultimate AI prompt generator designed specifically for developers, designers, and creative professionals.
+                        Whether you're building web applications with <Link to="/prompt-builder" className="text-primary hover:underline">AI coding assistants like Cursor and Lovable</Link>,
+                        creating stunning visuals with Midjourney, composing music with Suno, or producing videos with Luma and Runway,
+                        SparkScript provides the structured, technical prompts you need for exceptional results.
+                    </p>
+
+                    <p className="text-base text-gray-300 leading-relaxed">
+                        Our <Link to="/scripts" className="text-primary hover:underline">professional prompt templates</Link> cover four major creative domains:
+                        software development, image generation, music production, and video creation. Each template is engineered with precision
+                        to ensure AI tools understand exactly what you want to create. Stop wasting time with vague prompts that produce
+                        mediocre results—use SparkScript to architect your vision with technical clarity.
+                    </p>
+
+                    <p className="text-base text-gray-300 leading-relaxed">
+                        The platform supports over 50 AI generation tools including development platforms (Cursor, Lovable, Bolt.new, V0, Replit),
+                        image generators (Midjourney, Stable Diffusion, DALL-E), music creators (Suno, Udio), and video producers (Luma, Runway).
+                        Our intelligent prompt generator adapts to each tool's specific requirements, ensuring optimal compatibility and output quality.
+                    </p>
+                </motion.div>
+
+                <motion.div
                     variants={itemVariants}
                     className="flex flex-col sm:flex-row items-center justify-center gap-6"
                 >
@@ -149,6 +177,11 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                         viewport={{ once: true }}
                         className="h-1.5 bg-primary mx-auto rounded-full" 
                     />
+                    <p className="text-gray-400 mt-6 max-w-3xl mx-auto leading-relaxed">
+                        SparkScript specializes in creating domain-specific prompts optimized for each AI creative category.
+                        Our <Link to="/prompt-builder" className="text-primary hover:underline">intelligent generator</Link> understands
+                        the technical requirements of different AI tools and generates prompts that deliver professional results every time.
+                    </p>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <InfoSection icon={<FiLayout size={28} />} title={t.about_info_web_title} desc={t.about_info_web_desc} />
@@ -158,16 +191,24 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                 </div>
             </motion.section>
 
-            <section className="mb-32 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <ValueCard icon={<FiZap size={32} />} title={t.about_value1_title}>
-                    {t.about_value1_desc}
-                </ValueCard>
-                <ValueCard icon={<FiFeather size={32} />} title={t.about_value2_title}>
-                    {t.about_value2_desc}
-                </ValueCard>
-                <ValueCard icon={<FiSend size={32} />} title={t.about_value3_title}>
-                    {t.about_value3_desc}
-                </ValueCard>
+            <section className="mb-32">
+                <div className="text-center mb-12">
+                    <h2 className="text-4xl font-black mb-4 text-white">Why Choose SparkScript</h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto">
+                        Experience the power of structured, technical prompt generation across all creative domains
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <ValueCard icon={<FiZap size={32} />} title={t.about_value1_title}>
+                        {t.about_value1_desc}
+                    </ValueCard>
+                    <ValueCard icon={<FiFeather size={32} />} title={t.about_value2_title}>
+                        {t.about_value2_desc}
+                    </ValueCard>
+                    <ValueCard icon={<FiSend size={32} />} title={t.about_value3_title}>
+                        {t.about_value3_desc}
+                    </ValueCard>
+                </div>
             </section>
             
             <motion.section 
@@ -179,9 +220,15 @@ export const About: React.FC<AboutProps> = ({ t }) => {
                  <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full -z-10 transform scale-75"></div>
                  <div className="bg-surface/60 backdrop-blur-xl p-10 md:p-20 rounded-[2.5rem] border border-white/5 shadow-2xl text-center">
                     <h2 className="text-4xl md:text-5xl font-black mb-10 text-white leading-tight">{t.about_why_title}</h2>
-                    <p className="text-xl text-gray-300 leading-relaxed max-w-5xl mx-auto font-medium">
+                    <p className="text-xl text-gray-300 leading-relaxed max-w-5xl mx-auto font-medium mb-8">
                         {t.about_why_desc}
                     </p>
+                    <div className="flex justify-center">
+                        <SocialShare
+                            title="SparkScript - AI Prompt Generator"
+                            description="Generate precise AI prompts for development, images, music, and video"
+                        />
+                    </div>
                  </div>
             </motion.section>
 
